@@ -182,7 +182,8 @@
 
         // Fetch gallery from Supabase
         try {
-            const { data, error } = await supabase.from('gallery').select('*').order('created_at', { ascending: true });
+            if (!window.supabaseClient) throw new Error("Supabase is not configured.");
+            const { data, error } = await window.supabaseClient.from('gallery').select('*').order('created_at', { ascending: true });
             if (!error && data) {
                 const tracks = { 'track-teljes': [], 'track-kiallitas': [] };
                 data.forEach(img => {
@@ -335,7 +336,8 @@
 
         // Fetch puppies from Supabase
         try {
-            const { data, error } = await supabase.from('puppies').select('*').order('created_at', { ascending: false });
+            if (!window.supabaseClient) throw new Error("Supabase is not configured.");
+            const { data, error } = await window.supabaseClient.from('puppies').select('*').order('created_at', { ascending: false });
             if (!error && data) {
                 let html = '';
                 data.forEach(p => {
@@ -371,14 +373,14 @@
                         html += `
                             <div class="puppy-card">
                                 <div class="puppy-img-wrap">
-                                    <span class="puppy-age-ghost">${p.ageNum || '00'}</span>
+                                    <span class="puppy-age-ghost">${p.agenum || '00'}</span>
                                     ${badgeHTML}
                                     <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.background='#1A1816'">
                                 </div>
                                 <div class="puppy-body">
-                                    <div class="puppy-litter">${p.name} · ${p.date}</div>
+                                    <div class="puppy-litter">${p.name} · ${p.date || ''}</div>
                                     <div class="puppy-name">${p.name}</div>
-                                    <div class="puppy-age-label">${p.ageLabel}</div>
+                                    <div class="puppy-age-label">${p.agelabel || ''}</div>
                                     <p class="puppy-desc">${p.desc}</p>
                                     <div class="puppy-meta">${tagsHTML}</div>
                                     ${ctaHTML}

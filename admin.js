@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadPuppies() {
         try {
-            const { data, error } = await supabase.from('puppies').select('*').order('created_at', { ascending: false });
+            const { data, error } = await window.supabaseClient.from('puppies').select('*').order('created_at', { ascending: false });
             if (error) throw error;
             puppies = data || [];
             renderTable();
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tr.innerHTML = `
                 <td><img src="${p.image}" class="table-img" alt="${p.name}"></td>
                 <td><strong>${p.name}</strong></td>
-                <td>${p.ageLabel} <br><small style="color:var(--muted)">${p.date}</small></td>
+                <td>${p.agelabel} <br><small style="color:var(--muted)">${p.date}</small></td>
                 <td>${statusBadge}</td>
                 <td>
                     <div class="action-btns">
@@ -171,8 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const newPuppy = {
             name: pName.value,
             date: pDate.value,
-            ageLabel: pAgeLabel.value,
-            ageNum: pAgeNum.value,
+            agelabel: pAgeLabel.value,
+            agenum: pAgeNum.value,
             status: pStatus.value,
             image: finalImage,
             desc: pDesc.value,
@@ -182,11 +182,11 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             if (pId.value) {
                 // Edit existing
-                const { error } = await supabase.from('puppies').update(newPuppy).eq('id', pId.value);
+                const { error } = await window.supabaseClient.from('puppies').update(newPuppy).eq('id', pId.value);
                 if (error) throw error;
             } else {
                 // Add new
-                const { error } = await supabase.from('puppies').insert([newPuppy]);
+                const { error } = await window.supabaseClient.from('puppies').insert([newPuppy]);
                 if (error) throw error;
             }
             await loadPuppies(); // Refresh table
@@ -206,8 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
         pId.value = p.id;
         pName.value = p.name;
         pDate.value = p.date;
-        pAgeLabel.value = p.ageLabel;
-        pAgeNum.value = p.ageNum;
+        pAgeLabel.value = p.agelabel;
+        pAgeNum.value = p.agenum;
         pStatus.value = p.status;
         pImage.value = p.image;
         pDesc.value = p.desc;
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.deletePuppy = async function(id) {
         if (confirm('Biztosan törölni szeretné ezt a kölyköt?')) {
             try {
-                const { error } = await supabase.from('puppies').delete().eq('id', id);
+                const { error } = await window.supabaseClient.from('puppies').delete().eq('id', id);
                 if (error) throw error;
                 await loadPuppies();
             } catch (err) {
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadGallery() {
         try {
             // Sort by created_at to maintain stable ordering matching the UI layout expectations
-            const { data, error } = await supabase.from('gallery').select('*').order('created_at', { ascending: true });
+            const { data, error } = await window.supabaseClient.from('gallery').select('*').order('created_at', { ascending: true });
             if (error) throw error;
             
             galleryData = { 'track-teljes': [], 'track-kiallitas': [] };
@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const imageId = gImageId.value;
         
         try {
-            const { error } = await supabase.from('gallery').update({
+            const { error } = await window.supabaseClient.from('gallery').update({
                 src: finalImage,
                 cap: gCaption.value
             }).eq('id', imageId);
