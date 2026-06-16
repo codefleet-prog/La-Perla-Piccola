@@ -221,6 +221,9 @@
                 });
                 
                 tracksContainer.innerHTML = html;
+                
+                // Refresh the NodeList of items now that they are rendered
+                if (typeof refreshGalItems === 'function') refreshGalItems();
             }
         } catch (e) { console.error("Error fetching gallery:", e); }
 
@@ -243,10 +246,25 @@
             const scrolled    = Math.max(0, -rect.top);
             const p           = totalScroll > 0 ? Math.min(1, scrolled / totalScroll) : 0;
 
+            // Horizontal slide with a deadzone so it doesn't slide immediately
+            const trackWidth  = activeTrack.scrollWidth;
+            const vw          = window.innerWidth;
+            const maxMove     = Math.max(0, trackWidth - vw + 64); // 64px padding allowance
+
+            const slideDeadzone = 0.25; // 25% of sticky scroll is stationary
+            const slideP = p < slideDeadzone ? 0 : (p - slideDeadzone) / (1 - slideDeadzone);
+
+            activeTrack.style.transform = `translate3d(${-maxMove * slideP}px, 0, 0)`;
+
+            // Fully scroll driven reveal mapping total viewport-to-viewport scroll
+            const revealTotal = galContainer.offsetHeight;
+            const revealScrolled = Math.max(0, window.innerHeight - rect.top);
+            const revealP = revealTotal > 0 ? Math.min(1, revealScrolled / revealTotal) : 0;
+
             galItems.forEach((item, i) => {
-                // simple staggered reveal
-                let threshold = Math.min(0.8, i * 0.05);
-                item.classList.toggle('revealed', p >= threshold);
+                let threshold = Math.min(0.95, i * (0.95 / Math.max(1, galItems.length)));
+                item.classList.toggle('revealed', revealP >= threshold);
+                item.style.transitionDelay = '0s'; // override any previous delays
             });
         }
 
@@ -259,20 +277,32 @@
                 updateSlider(btn);
 
                 const targetId = btn.getAttribute('data-target');
-                document.querySelectorAll('.gallery-track').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.gallery-track').forEach(t => {
+                    t.classList.remove('active');
+                    t.querySelectorAll('.gi').forEach(gi => gi.classList.remove('revealed'));
+                });
                 
                 activeTrack = document.getElementById(targetId);
                 if (activeTrack) {
                     activeTrack.classList.add('active');
-                    galItems = activeTrack.querySelectorAll('.gi');
-                    
                     activeTrack.classList.add('animating');
-
-                    // Force instant update for the newly active track
+                    galItems = activeTrack.querySelectorAll('.gi');
                     updateGallery();
+                    
+                    // Reset scroll to start of gallery so it shows the first image
+                    const topOffset = galContainer.getBoundingClientRect().top + window.scrollY;
+                    window.scrollTo({ top: topOffset, behavior: 'smooth' });
                 }
             });
         });
+
+        function refreshGalItems() {
+            if (activeTrack) galItems = activeTrack.querySelectorAll('.gi');
+            updateGallery();
+        }
+
+        // Initialize when data is fetched
+        setTimeout(refreshGalItems, 500);
 
         window.addEventListener('scroll', updateGallery, { passive: true });
         updateGallery();
