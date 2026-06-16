@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadPuppies() {
         try {
-            const { data, error } = await window.supabaseClient.from('puppies').select('*').order('created_at', { ascending: false });
+            const { data, error } = await window.supabaseClient.from('puppies').select('*').order('display_order', { ascending: true }).order('created_at', { ascending: false });
             if (error) throw error;
             puppies = data || [];
             renderTable();
@@ -87,14 +87,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function getSortedPuppies() {
         const val = sortSelect.value;
         const sorted = [...puppies];
-        if (val === 'name-asc') {
+        if (val === 'default') {
+            sorted.sort((a, b) => {
+                const aOrder = a.display_order || 0;
+                const bOrder = b.display_order || 0;
+                if (aOrder !== bOrder) return aOrder - bOrder;
+                return new Date(b.created_at) - new Date(a.created_at);
+            });
+        } else if (val === 'name-asc') {
             sorted.sort((a, b) => a.name.localeCompare(b.name));
         } else if (val === 'name-desc') {
             sorted.sort((a, b) => b.name.localeCompare(a.name));
         } else if (val === 'age-asc') {
-            sorted.sort((a, b) => parseInt(a.ageNum || 0) - parseInt(b.ageNum || 0));
+            sorted.sort((a, b) => parseInt(a.agenum || 0) - parseInt(b.agenum || 0));
         } else if (val === 'age-desc') {
-            sorted.sort((a, b) => parseInt(b.ageNum || 0) - parseInt(a.ageNum || 0));
+            sorted.sort((a, b) => parseInt(b.agenum || 0) - parseInt(a.agenum || 0));
         }
         return sorted;
     }
@@ -105,11 +112,21 @@ document.addEventListener('DOMContentLoaded', () => {
         puppyTableBody.innerHTML = '';
         const sortedPuppies = getSortedPuppies();
         
-        sortedPuppies.forEach(p => {
+        sortedPuppies.forEach((p, index) => {
             let statusBadge = '';
             if (p.status === 'available') statusBadge = '<span class="status-badge status-available">Elérhető</span>';
             else if (p.status === 'reserved') statusBadge = '<span class="status-badge status-reserved">Foglalt</span>';
             else statusBadge = '<span class="status-badge status-planned">Tervezett</span>';
+
+            let moveButtons = '';
+            if (sortSelect.value === 'default') {
+                const isFirst = index === 0;
+                const isLast = index === sortedPuppies.length - 1;
+                moveButtons = `
+                    <button class="btn-icon" ${isFirst ? 'disabled style="opacity:0.3"' : ''} onclick="movePuppyUp('${p.id}')">⬆️</button>
+                    <button class="btn-icon" ${isLast ? 'disabled style="opacity:0.3"' : ''} onclick="movePuppyDown('${p.id}')">⬇️</button>
+                `;
+            }
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -119,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${statusBadge}</td>
                 <td>
                     <div class="action-btns">
+                        ${moveButtons}
                         <button class="btn-icon" onclick="editPuppy('${p.id}')">Szerkesztés</button>
                         <button class="btn-icon btn-delete" onclick="deletePuppy('${p.id}')">Törlés</button>
                     </div>
@@ -185,7 +203,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const { error } = await window.supabaseClient.from('puppies').update(newPuppy).eq('id', pId.value);
                 if (error) throw error;
             } else {
-                // Add new
+                // Add new (put at end of list)
+                const maxOrder = puppies.reduce((max, p) => Math.max(max, p.display_order || 0), 0);
+                newPuppy.display_order = maxOrder + 10;
+                
                 const { error } = await window.supabaseClient.from('puppies').insert([newPuppy]);
                 if (error) throw error;
             }
@@ -223,10 +244,65 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (error) throw error;
                 await loadPuppies();
             } catch (err) {
-                console.error("Error deleting puppy:", err);
-                alert("Hiba történt a törlés során.");
+                console.error("Hiba törléskor:", err);
             }
         }
+    };
+
+    // Reordering Logic
+    async function ensureDisplayOrder() {
+        const needsInit = puppies.every(p => !p.display_order || p.display_order === 0);
+        if (needsInit) {
+            const sorted = getSortedPuppies();
+            for (let i = 0; i < sorted.length; i++) {
+                sorted[i].display_order = (i + 1) * 10;
+                await window.supabaseClient.from('puppies').update({ display_order: sorted[i].display_order }).eq('id', sorted[i].id);
+            }
+        }
+    }
+
+    window.movePuppyUp = async function(id) {
+        await ensureDisplayOrder();
+        const sorted = getSortedPuppies();
+        const idx = sorted.findIndex(p => p.id === id);
+        if (idx <= 0) return;
+        
+        const current = sorted[idx];
+        const prev = sorted[idx - 1];
+        
+        const temp = current.display_order;
+        current.display_order = prev.display_order;
+        prev.display_order = temp;
+
+        renderTable(); // Update UI immediately for responsiveness
+
+        await Promise.all([
+            window.supabaseClient.from('puppies').update({ display_order: current.display_order }).eq('id', current.id),
+            window.supabaseClient.from('puppies').update({ display_order: prev.display_order }).eq('id', prev.id)
+        ]);
+        await loadPuppies(); // Refresh full state
+    };
+
+    window.movePuppyDown = async function(id) {
+        await ensureDisplayOrder();
+        const sorted = getSortedPuppies();
+        const idx = sorted.findIndex(p => p.id === id);
+        if (idx < 0 || idx >= sorted.length - 1) return;
+        
+        const current = sorted[idx];
+        const next = sorted[idx + 1];
+        
+        const temp = current.display_order;
+        current.display_order = next.display_order;
+        next.display_order = temp;
+
+        renderTable();
+
+        await Promise.all([
+            window.supabaseClient.from('puppies').update({ display_order: current.display_order }).eq('id', current.id),
+            window.supabaseClient.from('puppies').update({ display_order: next.display_order }).eq('id', next.id)
+        ]);
+        await loadPuppies();
     };
 
     // --- Sidebar Navigation ---

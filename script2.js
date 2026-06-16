@@ -191,20 +191,35 @@
                 });
 
                 let html = '';
-                ['track-teljes', 'track-kiallitas'].forEach((trackId, idx) => {
-                    let activeClass = idx === 0 ? 'active' : '';
-                    html += `<div class="gallery-track ${activeClass}" id="${trackId}">`;
-                    html += `<div class="gallery-panel">`;
+                Object.keys(tracks).forEach(trackId => {
+                    const activeClass = trackId === 'track-teljes' ? ' active' : '';
+                    html += `<div class="gallery-track${activeClass}" id="${trackId}">`;
+                    
+                    // Group images by panel inside this track
+                    const panels = {};
                     tracks[trackId].forEach(img => {
-                        html += `
-                            <div class="gi">
-                                <img src="${img.src}" alt="${img.cap}" loading="lazy">
-                                <span class="gi-cap">${img.cap}</span>
-                            </div>
-                        `;
+                        const pNum = img.panel || 1;
+                        if (!panels[pNum]) panels[pNum] = [];
+                        panels[pNum].push(img);
                     });
-                    html += `</div></div>`;
+
+                    // Render panels
+                    Object.keys(panels).sort().forEach(pNum => {
+                        html += `<div class="gallery-panel gallery-panel-${pNum}">`;
+                        panels[pNum].forEach(img => {
+                            html += `
+                                <div class="gi">
+                                    <img src="${img.src}" alt="${img.cap || ''}" loading="lazy">
+                                    <span class="gi-cap">${img.cap || ''}</span>
+                                </div>
+                            `;
+                        });
+                        html += `</div>`;
+                    });
+
+                    html += `</div>`;
                 });
+                
                 tracksContainer.innerHTML = html;
             }
         } catch (e) { console.error("Error fetching gallery:", e); }
@@ -337,7 +352,7 @@
         // Fetch puppies from Supabase
         try {
             if (!window.supabaseClient) throw new Error("Supabase is not configured.");
-            const { data, error } = await window.supabaseClient.from('puppies').select('*').order('created_at', { ascending: false });
+            const { data, error } = await window.supabaseClient.from('puppies').select('*').order('display_order', { ascending: true }).order('created_at', { ascending: false });
             if (!error && data) {
                 let html = '';
                 data.forEach(p => {
