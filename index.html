@@ -1,600 +1,712 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Perla Piccola — Olasz Agár Kennel · Kozármisleny</title>
-    <meta name="description" content="FCI regisztrált kis olasz agár kennel, Kozármisleny, Magyarország. Egészségvizsgált szülők, élethosszig tartó tenyésztői támogatás.">
+    <meta name="description"
+        content="FCI regisztrált kis olasz agár kennel, Kozármisleny, Magyarország. Egészségvizsgált szülők, élethosszig tartó tenyésztői támogatás.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="style2.css">
 </head>
+
 <body>
 
-<!-- ==================== SCROLL PROGRESS ==================== -->
-<div class="progress-bar"></div>
+    <!-- ==================== SCROLL PROGRESS ==================== -->
+    <div class="progress-bar"></div>
 
-<!-- ==================== LOADER ==================== -->
-<div id="loader">
-    <div class="loader-curtain-top"></div>
-    <div class="loader-curtain-btm"></div>
-    <div class="loader-body" id="loaderBody">
-        <div class="loader-wordmark">
-            <div class="loader-name">La <em>Perla</em> Piccola</div>
-        </div>
-        <div class="loader-sub">Olasz Agár Kennel · Kozármisleny</div>
-        <div class="loader-line">
-            <div class="loader-line-fill" id="loaderFill"></div>
-        </div>
-    </div>
-</div>
-
-<!-- ==================== NAV (centered pill) ==================== -->
-<nav class="nav" id="nav">
-    <a href="#" class="nav-logo">La <em>Perla</em> Piccola</a>
-    <ul class="nav-links">
-        <li><a href="#rolunk">Rólunk</a></li>
-        <li><a href="#agaraink">Agaraink</a></li>
-        <li><a href="#kolykök">Kölykök</a></li>
-        <li><a href="#galeria">Galéria</a></li>
-        <li><a href="#gyik">GYIK</a></li>
-        <li><a href="#kapcsolat">Kapcsolat</a></li>
-    </ul>
-    <a href="#kapcsolat" class="nav-btn">Érdeklődjön</a>
-</nav>
-
-<!-- ==================== HERO ==================== -->
-<section class="hero" id="home">
-    <div class="hero-bg" id="heroBg2">
-        <img
-            src="hero1.jpg"
-            alt="La Perla Piccola — Olasz agár"
-            fetchpriority="high"
-            onerror="this.src='https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=85&w=2400&auto=format&fit=crop'"
-        >
-    </div>
-
-    <!-- Decorative asterisk -->
-    <span class="hero-asterisk" aria-hidden="true">✦</span>
-
-    <!-- Bottom layout -->
-    <div class="hero-bottom">
-        <!-- Left: oversized brand name -->
-        <div class="hero-wordmark" id="heroWordmark">
-            <span class="hwl-wrap" id="hwlWrap1"><span class="hero-wordmark-line1">La Perla</span></span>
-            <span class="hwl-wrap" id="hwlWrap2"><span class="hero-wordmark-line2">Piccola</span></span>
-        </div>
-
-        <!-- Right: tag + desc + pill CTA -->
-        <div class="hero-right" id="heroRight">
-            <div class="hero-tag-pill">FCI Kennel · Kozármisleny</div>
-            <p class="hero-desc">
-                Kis olasz agár tenyésztés szenvedéllyel —<br>
-                egészséges, kiegyensúlyozott kölykök<br>
-                Pécs közelében.
-            </p>
-            <a href="#kolykök" class="hero-cta-pill">
-                Kölykök megtekintése
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- ==================== TICKER ==================== -->
-<div class="ticker-section">
-    <div class="ticker-track">
-        <div class="ticker-item"><span class="accent">FCI</span> Regisztrált Kennel <div class="ticker-dot"></div></div>
-        <div class="ticker-item">Piccolo Levriero Italiano <div class="ticker-dot"></div></div>
-        <div class="ticker-item">Egészségvizsgált Szülők <div class="ticker-dot"></div></div>
-        <div class="ticker-item">Kozármisleny · <span class="accent">Pécs</span> <div class="ticker-dot"></div></div>
-        <div class="ticker-item">2019 óta <div class="ticker-dot"></div></div>
-        <div class="ticker-item">Élethosszig tartó Tenyésztői Támogatás <div class="ticker-dot"></div></div>
-        <div class="ticker-item"><span class="accent">FCI</span> Regisztrált Kennel <div class="ticker-dot"></div></div>
-        <div class="ticker-item">Piccolo Levriero Italiano <div class="ticker-dot"></div></div>
-        <div class="ticker-item">Egészségvizsgált Szülők <div class="ticker-dot"></div></div>
-        <div class="ticker-item">Kozármisleny · <span class="accent">Pécs</span> <div class="ticker-dot"></div></div>
-        <div class="ticker-item">2019 óta <div class="ticker-dot"></div></div>
-        <div class="ticker-item">Élethosszig tartó Tenyésztői Támogatás <div class="ticker-dot"></div></div>
-    </div>
-</div>
-
-<!-- ==================== STATS ==================== -->
-<section class="stats-section">
-    <div class="stats-inner">
-        <div class="stats-eyebrow">Számokban</div>
-        <div class="stats-grid">
-            <div class="stat-block">
-                <div class="stat-num" data-count="2100" data-suffix="+">0+</div>
-                <div class="stat-label">Facebook Követő</div>
+    <!-- ==================== LOADER ==================== -->
+    <div id="loader">
+        <div class="loader-curtain-top"></div>
+        <div class="loader-curtain-btm"></div>
+        <div class="loader-body" id="loaderBody">
+            <div class="loader-wordmark">
+                <div class="loader-name">La <em>Perla</em> Piccola</div>
             </div>
-            <div class="stat-block" style="animation-delay:0.08s">
-                <div class="stat-num" data-count="6" data-suffix="+">0+</div>
-                <div class="stat-label">Év Tapasztalat</div>
-            </div>
-            <div class="stat-block" style="animation-delay:0.16s">
-                <div class="stat-num" data-count="40" data-suffix="+">0+</div>
-                <div class="stat-label">Elhelyezett Kölyök</div>
-            </div>
-            <div class="stat-block" style="animation-delay:0.24s">
-                <div class="stat-num" data-count="100" data-suffix="%">0%</div>
-                <div class="stat-label">Egészségvizsgálat</div>
+            <div class="loader-sub">Olasz Agár Kennel · Kozármisleny</div>
+            <div class="loader-line">
+                <div class="loader-line-fill" id="loaderFill"></div>
             </div>
         </div>
     </div>
-</section>
 
-<!-- ==================== ABOUT ==================== -->
-<section class="about-scroll-container" id="rolunk">
-    <div class="about-sticky">
+    <!-- ==================== NAV (centered pill) ==================== -->
+    <nav class="nav" id="nav">
+        <a href="#" class="nav-logo">La <em>Perla</em> Piccola</a>
+        <ul class="nav-links">
+            <li><a href="#rolunk">Rólunk</a></li>
+            <li><a href="#agaraink">Agaraink</a></li>
+            <li><a href="#fajtarol">Fajta</a></li>
+            <li><a href="#kolykök">Kölykök</a></li>
+            <li><a href="#galeria">Galéria</a></li>
+            <li><a href="#gyik">GYIK</a></li>
+            <li><a href="#kapcsolat">Kapcsolat</a></li>
+        </ul>
+        <a href="#kapcsolat" class="nav-btn">Érdeklődjön</a>
+    </nav>
 
-        <!-- Left: text content -->
-        <div class="about-text-panel">
-            <span class="about-ghost-num" aria-hidden="true">01</span>
-            <div class="about-progress-line" id="aboutLine"></div>
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" id="home">
+        <div class="hero-bg" id="heroBg2">
+            <img src="hero1.jpg" alt="La Perla Piccola — Olasz agár" fetchpriority="high"
+                onerror="this.src='https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=85&w=2400&auto=format&fit=crop'">
+        </div>
 
-            <div class="about-content">
-                <div class="about-eyebrow" id="aboutEyebrow">Rólunk</div>
+        <!-- Decorative asterisk -->
+        <span class="hero-asterisk" aria-hidden="true">✦</span>
 
-                <h2 class="about-headline">
-                    <span class="about-h-line"><span class="about-h-inner" id="ahl0">Szenvedéllyel</span></span>
-                    <span class="about-h-line"><span class="about-h-inner" id="ahl1">és <em>céltudatosan</em></span></span>
-                    <span class="about-h-line"><span class="about-h-inner" id="ahl2">tenyésztünk</span></span>
-                </h2>
+        <!-- Bottom layout -->
+        <div class="hero-bottom">
+            <!-- Left: oversized brand name -->
+            <div class="hero-wordmark" id="heroWordmark">
+                <span class="hwl-wrap" id="hwlWrap1"><span class="hero-wordmark-line1">La Perla</span></span>
+                <span class="hwl-wrap" id="hwlWrap2"><span class="hero-wordmark-line2">Piccola</span></span>
+            </div>
 
-                <p class="about-para" id="ap0">
-                    A La Perla Piccola kennel egy mélységes szeretetből született a kis olasz agár iránt — egy fajtáért, amely olyan finom és értékes, mint a neve: <em>a kis gyöngy</em>. Kozármislenyben, Pécs közelében neveljük ezeket a lenyűgöző agárokat.
+            <!-- Right: tag + desc + pill CTA -->
+            <div class="hero-right" id="heroRight">
+                <div class="hero-tag-pill">FCI Kennel · Kozármisleny</div>
+                <p class="hero-desc">
+                    Kis olasz agár tenyésztés szenvedéllyel —<br>
+                    egészséges, kiegyensúlyozott kölykök<br>
+                    Pécs közelében.
                 </p>
-                <p class="about-para" id="ap1">
-                    Minden kölyök teljesen beoltva, mikrochippel ellátva, FCI pedigrébe bejegyezve és szocializálva kerül új gazdájához — egész életen át tartó tenyésztői támasszal.
+                <a href="#kolykök" class="hero-cta-pill">
+                    Kölykök megtekintése
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TICKER ==================== -->
+    <div class="ticker-section">
+        <div class="ticker-track">
+            <div class="ticker-item"><span class="accent">FCI</span> Regisztrált Kennel <div class="ticker-dot"></div>
+            </div>
+            <div class="ticker-item">Piccolo Levriero Italiano <div class="ticker-dot"></div>
+            </div>
+            <div class="ticker-item">Egészségvizsgált Szülők <div class="ticker-dot"></div>
+            </div>
+            <div class="ticker-item">Kozármisleny · <span class="accent">Pécs</span>
+                <div class="ticker-dot"></div>
+            </div>
+            <div class="ticker-item">2019 óta <div class="ticker-dot"></div>
+            </div>
+            <div class="ticker-item">Élethosszig tartó Tenyésztői Támogatás <div class="ticker-dot"></div>
+            </div>
+            <div class="ticker-item"><span class="accent">FCI</span> Regisztrált Kennel <div class="ticker-dot"></div>
+            </div>
+            <div class="ticker-item">Piccolo Levriero Italiano <div class="ticker-dot"></div>
+            </div>
+            <div class="ticker-item">Egészségvizsgált Szülők <div class="ticker-dot"></div>
+            </div>
+            <div class="ticker-item">Kozármisleny · <span class="accent">Pécs</span>
+                <div class="ticker-dot"></div>
+            </div>
+            <div class="ticker-item">2019 óta <div class="ticker-dot"></div>
+            </div>
+            <div class="ticker-item">Élethosszig tartó Tenyésztői Támogatás <div class="ticker-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== STATS ==================== -->
+    <section class="stats-section">
+        <div class="stats-inner">
+            <div class="stats-eyebrow">Számokban</div>
+            <div class="stats-grid">
+                <div class="stat-block">
+                    <div class="stat-num" data-count="2100" data-suffix="+">0+</div>
+                    <div class="stat-label">Facebook Követő</div>
+                </div>
+                <div class="stat-block" style="animation-delay:0.08s">
+                    <div class="stat-num" data-count="6" data-suffix="+">0+</div>
+                    <div class="stat-label">Év Tapasztalat</div>
+                </div>
+                <div class="stat-block" style="animation-delay:0.16s">
+                    <div class="stat-num" data-count="40" data-suffix="+">0+</div>
+                    <div class="stat-label">Elhelyezett Kölyök</div>
+                </div>
+                <div class="stat-block" style="animation-delay:0.24s">
+                    <div class="stat-num" data-count="100" data-suffix="%">0%</div>
+                    <div class="stat-label">Egészségvizsgálat</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section class="about-scroll-container" id="rolunk">
+        <div class="about-sticky">
+
+            <!-- Left: text content -->
+            <div class="about-text-panel">
+                <span class="about-ghost-num" aria-hidden="true">01</span>
+                <div class="about-progress-line" id="aboutLine"></div>
+
+                <div class="about-content">
+                    <div class="about-eyebrow" id="aboutEyebrow">Rólunk</div>
+
+                    <h2 class="about-headline">
+                        <span class="about-h-line"><span class="about-h-inner" id="ahl0">Szenvedéllyel</span></span>
+                        <span class="about-h-line"><span class="about-h-inner" id="ahl1">és
+                                <em>céltudatosan</em></span></span>
+                        <span class="about-h-line"><span class="about-h-inner" id="ahl2">tenyésztünk</span></span>
+                    </h2>
+
+                    <p class="about-para" id="ap0">
+                        A la Perla Piccola története a kis olasz agár iránti mély csodálattal kezdődött. Ez a különleges
+                        fajta első pillanattól magával ragadott bennünket kifinomult eleganciájával, érzékeny
+                        lelkületével és rendkívül szoros emberközpontúságával. Az elmúlt hét év során a kis olasz agarak
+                        nem csupán hobbit, hanem életformát és szenvedélyt jelentettek számunkra. Kennelünk Kozármisleny
+                        városában található, ahol kutyáink családunk teljes jogú tagjaiként élnek velünk. Hiszünk abban,
+                        hogy a felelős tenyésztés alapja a szeretetteljes környezet, a gondos tervezés és a fajta iránti
+                        őszinte elkötelezettség.
+                    </p>
+                    <p class="about-para" id="ap1">
+                        Célunk olyan kis olasz agarak tenyésztése, amelyek nemcsak küllemükben felelnek meg a fajta
+                        legmagasabb elvárásainak, hanem egészségesek, kiegyensúlyozottak és örömteli társai lehetnek
+                        családjuknak. A tenyésztési programunk során kiemelt figyelmet fordítunk a megfelelő vérvonalak
+                        kiválasztására, az egészségügyi szempontokra és a fajta jellegzetes eleganciájának megőrzésére.
+                    </p>
+                    <p class="about-para" id="ap2">
+                        Kutyáinkkal rendszeresen részt veszünk hazai és nemzetközi kiállításokon. Ezek az alkalmak
+                        számunkra nemcsak eredményekről és címekről szólnak, hanem lehetőséget teremtenek arra is, hogy
+                        folyamatosan fejlődjünk, tanuljunk és kapcsolatot építsünk a fajta elkötelezett tenyésztőivel és
+                        rajongóival.
+                    </p>
+                    <p class="about-para" id="ap3">
+                        A nálunk születő kölykök életük első pillanataitól szeretetteljes, családi környezetben
+                        nevelkednek. Fontos számunkra, hogy megfelelő szocializációval, pozitív élményekkel és
+                        gondoskodással induljanak el életük útján, így könnyebben válhatnak új családjuk magabiztos és
+                        harmonikus tagjaivá.
+                    </p>
+                    <p class="about-para" id="ap4">
+                        A la Perla Piccola – vagyis „kis gyöngyszem” – név tökéletesen tükrözi azt, ahogyan kutyáinkra
+                        tekintünk. Minden egyes alom, minden megszülető kölyök különleges értéket képvisel számunkra, és
+                        megtiszteltetésnek érezzük, hogy részesei lehetünk fejlődésüknek. Szeretettel várunk
+                        weboldalunkon, és örömmel mutatjuk be azokat a kis olasz agarakat, akik nap mint nap inspirálnak
+                        bennünket.
+                    </p>
+                    <p class="about-para" id="ap5">
+                        <strong>la Perla Piccola Kennel</strong><br>
+                        Egy család, egy szenvedély, egy különleges fajta. 🐾
+                    </p>
+
+                    <div class="about-feat-row">
+                        <span class="about-feat-pill"><span class="pill-icon">🏅</span> FCI Regisztráció</span>
+                        <span class="about-feat-pill"><span class="pill-icon">🩺</span> Egészségvizsgálat</span>
+                        <span class="about-feat-pill"><span class="pill-icon">🏠</span> Otthon nevelve</span>
+                        <span class="about-feat-pill"><span class="pill-icon">📞</span> Élethosszig Támogatás</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: cinematic image that reveals on scroll -->
+            <div class="about-img-panel">
+                <img src="about1.jpg" alt="Olasz agár portré" loading="lazy" id="aboutImg"
+                    onerror="this.style.background='#1A1816'">
+                <div class="about-img-overlay" id="aboutOverlay"></div>
+                <div class="about-vert-label">La Perla Piccola — Olasz Agár</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== AGARAINK ==================== -->
+    <section class="dogs-section" id="agaraink">
+        <!-- Top shape divider -->
+        <div class="dogs-shape-top" aria-hidden="true">
+            <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="0,0 1440,0 1440,80 0,0" fill="#060504" />
+            </svg>
+        </div>
+
+        <!-- Diagonal accent line -->
+        <div class="dogs-diagonal-line" aria-hidden="true"></div>
+
+        <!-- Section header — left-aligned editorial -->
+        <div class="dogs-header">
+            <div class="dogs-header-left">
+                <div class="section-eyebrow">Agaraink</div>
+                <h2 class="dogs-headline">
+                    <span class="dogs-h-line"><span class="dogs-h-inner">A mi</span></span>
+                    <span class="dogs-h-line"><span class="dogs-h-inner"><em>gyöngyeink</em></span></span>
+                </h2>
+            </div>
+            <p class="dogs-intro">
+                Tenyészkutyáink az olasz agár fajtajelleg legszebb megtestesítői — egészségvizsgáltak, kiállítási
+                eredményekkel rendelkeznek, és a mindennapi életben is tökéletes társak.
+            </p>
+        </div>
+
+        <!-- Dog showcase — editorial staggered grid -->
+        <div class="dogs-showcase">
+
+            <!-- Dog 1: Large left, info floats right -->
+            <article class="dog-feature dog-feature--left">
+                <span class="dog-index" aria-hidden="true">01</span>
+                <div class="dog-portrait">
+                    <div class="dog-portrait-frame">
+                        <img src="03.jpg" alt="Tenyészkutya portré" loading="lazy">
+                        <div class="dog-portrait-overlay"></div>
+                    </div>
+                    <span class="dog-vert-label" aria-hidden="true">La Perla Piccola</span>
+                </div>
+                <div class="dog-info-card">
+                    <div class="dog-info-accent"></div>
+                    <div class="dog-info-name">Kutya Neve</div>
+                    <div class="dog-info-subtitle">Piccolo Levriero Italiano</div>
+                    <div class="dog-info-divider"></div>
+                    <div class="dog-info-stats">
+                        <div class="dog-stat">
+                            <span class="dog-stat-label">Nem</span>
+                            <span class="dog-stat-value">Szuka</span>
+                        </div>
+                        <div class="dog-stat">
+                            <span class="dog-stat-label">Szín</span>
+                            <span class="dog-stat-value">Vörös-Fawn</span>
+                        </div>
+                        <div class="dog-stat">
+                            <span class="dog-stat-label">Vizsgálat</span>
+                            <span class="dog-stat-value">Patella, Szem</span>
+                        </div>
+                    </div>
+                    <div class="dog-info-tags">
+                        <span class="dog-info-tag">FCI Pedigré</span>
+                        <span class="dog-info-tag">Egészségvizsgált</span>
+                        <span class="dog-info-tag">Kiállítási Eredmények</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Dog 2: Large right, info floats left (mirrored) -->
+            <article class="dog-feature dog-feature--right">
+                <span class="dog-index" aria-hidden="true">02</span>
+                <div class="dog-portrait">
+                    <div class="dog-portrait-frame">
+                        <img src="04.jpg" alt="Tenyészkutya portré" loading="lazy">
+                        <div class="dog-portrait-overlay"></div>
+                    </div>
+                    <span class="dog-vert-label" aria-hidden="true">La Perla Piccola</span>
+                </div>
+                <div class="dog-info-card">
+                    <div class="dog-info-accent"></div>
+                    <div class="dog-info-name">Másik Kutya</div>
+                    <div class="dog-info-subtitle">Piccolo Levriero Italiano</div>
+                    <div class="dog-info-divider"></div>
+                    <div class="dog-info-stats">
+                        <div class="dog-stat">
+                            <span class="dog-stat-label">Nem</span>
+                            <span class="dog-stat-value">Kan</span>
+                        </div>
+                        <div class="dog-stat">
+                            <span class="dog-stat-label">Szín</span>
+                            <span class="dog-stat-value">Kék-Szürke</span>
+                        </div>
+                        <div class="dog-stat">
+                            <span class="dog-stat-label">Vizsgálat</span>
+                            <span class="dog-stat-value">Patella, Szem</span>
+                        </div>
+                    </div>
+                    <div class="dog-info-tags">
+                        <span class="dog-info-tag">FCI Pedigré</span>
+                        <span class="dog-info-tag">Egészségvizsgált</span>
+                        <span class="dog-info-tag">Champion Vérvonal</span>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- Bottom shape divider -->
+        <div class="dogs-shape-bottom" aria-hidden="true">
+            <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="0,80 1440,0 1440,80 0,80" fill="#060504" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- ==================== A FAJTÁRÓL ==================== -->
+    <section class="breed-section" id="fajtarol">
+        <!-- Massive background text -->
+        <div class="breed-bg-text" aria-hidden="true">PLI</div>
+        
+        <div class="breed-inner">
+            <div class="breed-header fade-up-scroll">
+                <div class="section-eyebrow">A Fajtáról</div>
+                <h2 class="breed-title">Piccolo Levriero<br><em>Italiano</em></h2>
+            </div>
+            
+            <div class="breed-grid">
+                
+                <div class="breed-card bc-origin fade-up-scroll">
+                    <span class="bc-num">01</span>
+                    <h3>Történelem és Eredet</h3>
+                    <p>Az olasz agár egy ősi, arisztokratikus fajta, amely már az ókori Egyiptomban és Rómában is az uralkodók és nemesek kedvelt társa volt. Kecses, finom felépítése évszázadok óta változatlan, a reneszánsz festők egyik kedvenc motívuma volt.</p>
+                </div>
+                
+                <div class="breed-image fade-up-scroll">
+                    <div class="breed-img-frame">
+                        <img src="03.jpg" alt="Kis olasz agár fajtajellemzők" loading="lazy" onerror="this.src='about1.jpg'">
+                    </div>
+                </div>
+                
+                <div class="breed-card bc-nature fade-up-scroll">
+                    <span class="bc-num">02</span>
+                    <h3>Jellem és Természet</h3>
+                    <p>Rendkívül ragaszkodó, intelligens és érzékeny kis lény. Gazdájához mélyen kötődik, szinte árnyékként követi és igényli a fizikai kontaktust. A lakásban nyugodt, igazi "kanapé-kutya", de a szabadban azonnal előtör belőle az agár, imád futni.</p>
+                </div>
+                
+                <div class="breed-card bc-stats fade-up-scroll">
+                    <span class="bc-num">03</span>
+                    <h3>Fajta Standard</h3>
+                    <ul class="bc-stat-list">
+                        <li><strong>Marmagasság</strong> <span>32 - 38 cm</span></li>
+                        <li><strong>Testtömeg</strong> <span>3.5 - 5 kg</span></li>
+                        <li><strong>Élettartam</strong> <span>12 - 15 év</span></li>
+                        <li><strong>Szőrzet</strong> <span>Rövid, selymes, aljszőrzet nélkül</span></li>
+                        <li><strong>Színváltozatok</strong> <span>Fekete, szürke, isabella</span></li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PUPPIES ==================== -->
+    <section class="puppies-section" id="kolykök">
+        <div class="puppies-inner">
+            <div class="puppies-header">
+                <div>
+                    <div class="section-eyebrow">Kölykök</div>
+                    <h2 class="section-title">Találd meg a te<br><em>kis gyöngyödet</em></h2>
+                </div>
+                <div class="puppies-header-actions">
+                    <div class="puppies-nav">
+                        <button class="p-nav-btn p-prev" aria-label="Előző">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <button class="p-nav-btn p-next" aria-label="Következő">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
+                    </div>
+                    <a href="#kapcsolat" class="btn-pill-outline">Érdeklődjön →</a>
+                </div>
+            </div>
+
+            <div class="puppies-carousel-wrap">
+                <div class="puppies-grid" id="puppies-track">
+                    <!-- Dynamic Puppy Cards will be injected here via Supabase -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== GALLERY ==================== -->
+    <!-- Top shape divider (outside scroll container so it stays fixed) -->
+    <div class="gallery-shape-top" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="0,0 1440,0 0,80" fill="#060504" />
+        </svg>
+    </div>
+    <div class="gallery-scroll-container" id="galeria">
+        <div class="gallery-sticky">
+
+            <div class="gallery-header">
+                <div>
+                    <div class="section-eyebrow">Galéria</div>
+                    <h2 class="section-title">Egy pillantás<br>az <em>eleganciára</em></h2>
+                </div>
+                <div class="gallery-header-actions">
+                    <div class="gallery-toggle" id="galleryToggle">
+                        <div class="gt-slider" id="gtSlider"></div>
+                        <button class="gt-btn active" data-target="track-teljes">Teljes</button>
+                        <button class="gt-btn" data-target="track-kiallitas">Kiállítások</button>
+                    </div>
+                    <a href="https://www.facebook.com/profile.php?id=100076817904143" target="_blank" rel="noopener"
+                        class="btn-pill-outline">
+                        Összes kép Facebookon →
+                    </a>
+                </div>
+            </div>
+
+            <div class="gallery-tracks" id="galleryTracksContainer">
+                <!-- Dynamic Gallery Tracks will be injected here via Supabase -->
+            </div> <!-- /.gallery-tracks -->
+
+        </div> <!-- /.gallery-sticky -->
+    </div> <!-- /.gallery-scroll-container -->
+    <!-- Bottom shape divider (outside scroll container so it stays fixed) -->
+    <div class="gallery-shape-bottom" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="0,0 0,80 1440,80" fill="#060504" />
+        </svg>
+    </div>
+
+    <!-- ==================== FAQ ==================== -->
+    <section class="faq-section" id="gyik">
+        <div class="faq-inner">
+
+            <!-- Left: Sticky Editorial Header -->
+            <div class="faq-header">
+                <div class="faq-header-sticky">
+                    <div class="section-eyebrow">GYIK</div>
+                    <h2 class="faq-headline">
+                        <span class="faq-h-line"><span class="faq-h-inner">Gyakran</span></span>
+                        <span class="faq-h-line"><span class="faq-h-inner"><em>ismételt</em></span></span>
+                        <span class="faq-h-line"><span class="faq-h-inner">kérdések</span></span>
+                    </h2>
+                    <div class="faq-decor">
+                        <div class="faq-decor-line" aria-hidden="true"></div>
+                        <span class="faq-decor-asterisk" aria-hidden="true">✦</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Accordion Items -->
+            <div class="faq-items">
+
+                <div class="faq-item">
+                    <div class="faq-item-header">
+                        <span class="faq-item-num">01</span>
+                        <h3 class="faq-item-q">Milyen a Piccolo Levriero Italiano természete?</h3>
+                        <div class="faq-item-icon">
+                            <span class="faq-icon-line-h"></span>
+                            <span class="faq-icon-line-v"></span>
+                        </div>
+                    </div>
+                    <div class="faq-item-content">
+                        <div class="faq-item-content-inner">
+                            <p>A kis olasz agár rendkívül ragaszkodó, intelligens és érzékeny fajta. Szeret a gazdája
+                                közelében lenni, játékos, de egyben nyugodt is tud lenni a lakásban. Ideális társ
+                                azoknak, akik egy elegáns, mégis bújós kutyára vágynak.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-item-header">
+                        <span class="faq-item-num">02</span>
+                        <h3 class="faq-item-q">Mennyi mozgásra van szüksége?</h3>
+                        <div class="faq-item-icon">
+                            <span class="faq-icon-line-h"></span>
+                            <span class="faq-icon-line-v"></span>
+                        </div>
+                    </div>
+                    <div class="faq-item-content">
+                        <div class="faq-item-content-inner">
+                            <p>Bár agár, méretéből adódóan mozgásigénye mérsékelt. Napi 1-2 óra séta vagy játék
+                                általában elegendő számára. Ugyanakkor szeret futni is, de csak biztonságos, elkerített
+                                területen szabad elengedni.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-item-header">
+                        <span class="faq-item-num">03</span>
+                        <h3 class="faq-item-q">Mennyire fázós a fajta?</h3>
+                        <div class="faq-item-icon">
+                            <span class="faq-icon-line-h"></span>
+                            <span class="faq-icon-line-v"></span>
+                        </div>
+                    </div>
+                    <div class="faq-item-content">
+                        <div class="faq-item-content-inner">
+                            <p>Rövid szőre és alacsony testzsírszázaléka miatt a kis olasz agár érzékeny a hidegre.
+                                Őszi-téli időszakban, illetve esőben mindenképpen ajánlott számukra a megfelelő ruházat
+                                (pulóver, kabát) viselése.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-item-header">
+                        <span class="faq-item-num">04</span>
+                        <h3 class="faq-item-q">Alkalmasak lakásban tartásra?</h3>
+                        <div class="faq-item-icon">
+                            <span class="faq-icon-line-h"></span>
+                            <span class="faq-icon-line-v"></span>
+                        </div>
+                    </div>
+                    <div class="faq-item-content">
+                        <div class="faq-item-content-inner">
+                            <p>Kifejezetten ideálisak lakásba. Nagyon tiszták, szőrápolási igényük minimális, és a
+                                lakáson belül általában csendesek és nyugodtak – leginkább a kanapén, takaróba vackolva
+                                szeretnek pihenni.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section class="contact-section" id="kapcsolat">
+        <!-- Top shape divider from FAQ -->
+        <div class="contact-shape-top" aria-hidden="true">
+            <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="0,0 1440,0 1440,80 0,0" fill="#060504" />
+            </svg>
+        </div>
+
+        <div class="contact-inner">
+            <div class="contact-info">
+                <div class="section-eyebrow">Kapcsolat</div>
+                <h2 class="section-title">Szívesen<br>hallunk <em>önről</em></h2>
+                <p class="contact-info-desc">
+                    Akár egy kölyök iránt érdeklődik, akár a fajtáról szeretne többet megtudni — bármikor örömmel
+                    válaszolunk.
                 </p>
 
-                <div class="about-feat-row">
-                    <span class="about-feat-pill"><span class="pill-icon">🏅</span> FCI Regisztráció</span>
-                    <span class="about-feat-pill"><span class="pill-icon">🩺</span> Egészségvizsgálat</span>
-                    <span class="about-feat-pill"><span class="pill-icon">🏠</span> Otthon nevelve</span>
-                    <span class="about-feat-pill"><span class="pill-icon">📞</span> Élethosszig Támogatás</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Right: cinematic image that reveals on scroll -->
-        <div class="about-img-panel">
-            <img
-                src="about1.jpg"
-                alt="Olasz agár portré"
-                loading="lazy"
-                id="aboutImg"
-                onerror="this.style.background='#1A1816'"
-            >
-            <div class="about-img-overlay" id="aboutOverlay"></div>
-            <div class="about-vert-label">La Perla Piccola — Olasz Agár</div>
-        </div>
-
-    </div>
-</section>
-
-<!-- ==================== AGARAINK ==================== -->
-<section class="dogs-section" id="agaraink">
-    <!-- Top shape divider -->
-    <div class="dogs-shape-top" aria-hidden="true">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="0,0 1440,0 1440,80 0,0" fill="#060504"/>
-        </svg>
-    </div>
-
-    <!-- Diagonal accent line -->
-    <div class="dogs-diagonal-line" aria-hidden="true"></div>
-
-    <!-- Section header — left-aligned editorial -->
-    <div class="dogs-header">
-        <div class="dogs-header-left">
-            <div class="section-eyebrow">Agaraink</div>
-            <h2 class="dogs-headline">
-                <span class="dogs-h-line"><span class="dogs-h-inner">A mi</span></span>
-                <span class="dogs-h-line"><span class="dogs-h-inner"><em>gyöngyeink</em></span></span>
-            </h2>
-        </div>
-        <p class="dogs-intro">
-            Tenyészkutyáink az olasz agár fajtajelleg legszebb megtestesítői — egészségvizsgáltak, kiállítási eredményekkel rendelkeznek, és a mindennapi életben is tökéletes társak.
-        </p>
-    </div>
-
-    <!-- Dog showcase — editorial staggered grid -->
-    <div class="dogs-showcase">
-
-        <!-- Dog 1: Large left, info floats right -->
-        <article class="dog-feature dog-feature--left">
-            <span class="dog-index" aria-hidden="true">01</span>
-            <div class="dog-portrait">
-                <div class="dog-portrait-frame">
-                    <img
-                        src="03.jpg"
-                        alt="Tenyészkutya portré"
-                        loading="lazy"
-                    >
-                    <div class="dog-portrait-overlay"></div>
-                </div>
-                <span class="dog-vert-label" aria-hidden="true">La Perla Piccola</span>
-            </div>
-            <div class="dog-info-card">
-                <div class="dog-info-accent"></div>
-                <div class="dog-info-name">Kutya Neve</div>
-                <div class="dog-info-subtitle">Piccolo Levriero Italiano</div>
-                <div class="dog-info-divider"></div>
-                <div class="dog-info-stats">
-                    <div class="dog-stat">
-                        <span class="dog-stat-label">Nem</span>
-                        <span class="dog-stat-value">Szuka</span>
-                    </div>
-                    <div class="dog-stat">
-                        <span class="dog-stat-label">Szín</span>
-                        <span class="dog-stat-value">Vörös-Fawn</span>
-                    </div>
-                    <div class="dog-stat">
-                        <span class="dog-stat-label">Vizsgálat</span>
-                        <span class="dog-stat-value">Patella, Szem</span>
-                    </div>
-                </div>
-                <div class="dog-info-tags">
-                    <span class="dog-info-tag">FCI Pedigré</span>
-                    <span class="dog-info-tag">Egészségvizsgált</span>
-                    <span class="dog-info-tag">Kiállítási Eredmények</span>
-                </div>
-            </div>
-        </article>
-
-        <!-- Dog 2: Large right, info floats left (mirrored) -->
-        <article class="dog-feature dog-feature--right">
-            <span class="dog-index" aria-hidden="true">02</span>
-            <div class="dog-portrait">
-                <div class="dog-portrait-frame">
-                    <img
-                        src="04.jpg"
-                        alt="Tenyészkutya portré"
-                        loading="lazy"
-                    >
-                    <div class="dog-portrait-overlay"></div>
-                </div>
-                <span class="dog-vert-label" aria-hidden="true">La Perla Piccola</span>
-            </div>
-            <div class="dog-info-card">
-                <div class="dog-info-accent"></div>
-                <div class="dog-info-name">Másik Kutya</div>
-                <div class="dog-info-subtitle">Piccolo Levriero Italiano</div>
-                <div class="dog-info-divider"></div>
-                <div class="dog-info-stats">
-                    <div class="dog-stat">
-                        <span class="dog-stat-label">Nem</span>
-                        <span class="dog-stat-value">Kan</span>
-                    </div>
-                    <div class="dog-stat">
-                        <span class="dog-stat-label">Szín</span>
-                        <span class="dog-stat-value">Kék-Szürke</span>
-                    </div>
-                    <div class="dog-stat">
-                        <span class="dog-stat-label">Vizsgálat</span>
-                        <span class="dog-stat-value">Patella, Szem</span>
-                    </div>
-                </div>
-                <div class="dog-info-tags">
-                    <span class="dog-info-tag">FCI Pedigré</span>
-                    <span class="dog-info-tag">Egészségvizsgált</span>
-                    <span class="dog-info-tag">Champion Vérvonal</span>
-                </div>
-            </div>
-        </article>
-
-    </div>
-
-    <!-- Bottom shape divider -->
-    <div class="dogs-shape-bottom" aria-hidden="true">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="0,80 1440,0 1440,80 0,80" fill="#060504"/>
-        </svg>
-    </div>
-</section>
-
-<!-- ==================== PUPPIES ==================== -->
-<section class="puppies-section" id="kolykök">
-    <div class="puppies-inner">
-        <div class="puppies-header">
-            <div>
-                <div class="section-eyebrow">Kölykök</div>
-                <h2 class="section-title">Találd meg a te<br><em>kis gyöngyödet</em></h2>
-            </div>
-            <div class="puppies-header-actions">
-                <div class="puppies-nav">
-                    <button class="p-nav-btn p-prev" aria-label="Előző">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-                    </button>
-                    <button class="p-nav-btn p-next" aria-label="Következő">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-                    </button>
-                </div>
-                <a href="#kapcsolat" class="btn-pill-outline">Érdeklődjön →</a>
-            </div>
-        </div>
-
-        <div class="puppies-carousel-wrap">
-            <div class="puppies-grid" id="puppies-track">
-                <!-- Dynamic Puppy Cards will be injected here via Supabase -->
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ==================== GALLERY ==================== -->
-<!-- Top shape divider (outside scroll container so it stays fixed) -->
-<div class="gallery-shape-top" aria-hidden="true">
-    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="0,0 1440,0 0,80" fill="#060504"/>
-    </svg>
-</div>
-<div class="gallery-scroll-container" id="galeria">
-    <div class="gallery-sticky">
-
-        <div class="gallery-header">
-            <div>
-                <div class="section-eyebrow">Galéria</div>
-                <h2 class="section-title">Egy pillantás<br>az <em>eleganciára</em></h2>
-            </div>
-            <div class="gallery-header-actions">
-                <div class="gallery-toggle" id="galleryToggle">
-                    <div class="gt-slider" id="gtSlider"></div>
-                    <button class="gt-btn active" data-target="track-teljes">Teljes</button>
-                    <button class="gt-btn" data-target="track-kiallitas">Kiállítások</button>
-                </div>
-                <a href="https://www.facebook.com/profile.php?id=100076817904143"
-                   target="_blank" rel="noopener"
-                   class="btn-pill-outline">
-                    Összes kép Facebookon →
-                </a>
-            </div>
-        </div>
-
-        <div class="gallery-tracks" id="galleryTracksContainer">
-            <!-- Dynamic Gallery Tracks will be injected here via Supabase -->
-        </div> <!-- /.gallery-tracks -->
-
-    </div> <!-- /.gallery-sticky -->
-</div> <!-- /.gallery-scroll-container -->
-<!-- Bottom shape divider (outside scroll container so it stays fixed) -->
-<div class="gallery-shape-bottom" aria-hidden="true">
-    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="0,0 0,80 1440,80" fill="#060504"/>
-    </svg>
-</div>
-
-<!-- ==================== FAQ ==================== -->
-<section class="faq-section" id="gyik">
-    <div class="faq-inner">
-        
-        <!-- Left: Sticky Editorial Header -->
-        <div class="faq-header">
-            <div class="faq-header-sticky">
-                <div class="section-eyebrow">GYIK</div>
-                <h2 class="faq-headline">
-                    <span class="faq-h-line"><span class="faq-h-inner">Gyakran</span></span>
-                    <span class="faq-h-line"><span class="faq-h-inner"><em>ismételt</em></span></span>
-                    <span class="faq-h-line"><span class="faq-h-inner">kérdések</span></span>
-                </h2>
-                <div class="faq-decor">
-                    <div class="faq-decor-line" aria-hidden="true"></div>
-                    <span class="faq-decor-asterisk" aria-hidden="true">✦</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Right: Accordion Items -->
-        <div class="faq-items">
-            
-            <div class="faq-item">
-                <div class="faq-item-header">
-                    <span class="faq-item-num">01</span>
-                    <h3 class="faq-item-q">Milyen a Piccolo Levriero Italiano természete?</h3>
-                    <div class="faq-item-icon">
-                        <span class="faq-icon-line-h"></span>
-                        <span class="faq-icon-line-v"></span>
-                    </div>
-                </div>
-                <div class="faq-item-content">
-                    <div class="faq-item-content-inner">
-                        <p>A kis olasz agár rendkívül ragaszkodó, intelligens és érzékeny fajta. Szeret a gazdája közelében lenni, játékos, de egyben nyugodt is tud lenni a lakásban. Ideális társ azoknak, akik egy elegáns, mégis bújós kutyára vágynak.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-item-header">
-                    <span class="faq-item-num">02</span>
-                    <h3 class="faq-item-q">Mennyi mozgásra van szüksége?</h3>
-                    <div class="faq-item-icon">
-                        <span class="faq-icon-line-h"></span>
-                        <span class="faq-icon-line-v"></span>
-                    </div>
-                </div>
-                <div class="faq-item-content">
-                    <div class="faq-item-content-inner">
-                        <p>Bár agár, méretéből adódóan mozgásigénye mérsékelt. Napi 1-2 óra séta vagy játék általában elegendő számára. Ugyanakkor szeret futni is, de csak biztonságos, elkerített területen szabad elengedni.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-item-header">
-                    <span class="faq-item-num">03</span>
-                    <h3 class="faq-item-q">Mennyire fázós a fajta?</h3>
-                    <div class="faq-item-icon">
-                        <span class="faq-icon-line-h"></span>
-                        <span class="faq-icon-line-v"></span>
-                    </div>
-                </div>
-                <div class="faq-item-content">
-                    <div class="faq-item-content-inner">
-                        <p>Rövid szőre és alacsony testzsírszázaléka miatt a kis olasz agár érzékeny a hidegre. Őszi-téli időszakban, illetve esőben mindenképpen ajánlott számukra a megfelelő ruházat (pulóver, kabát) viselése.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-item-header">
-                    <span class="faq-item-num">04</span>
-                    <h3 class="faq-item-q">Alkalmasak lakásban tartásra?</h3>
-                    <div class="faq-item-icon">
-                        <span class="faq-icon-line-h"></span>
-                        <span class="faq-icon-line-v"></span>
-                    </div>
-                </div>
-                <div class="faq-item-content">
-                    <div class="faq-item-content-inner">
-                        <p>Kifejezetten ideálisak lakásba. Nagyon tiszták, szőrápolási igényük minimális, és a lakáson belül általában csendesek és nyugodtak – leginkább a kanapén, takaróba vackolva szeretnek pihenni.</p>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-</section>
-
-<!-- ==================== CONTACT ==================== -->
-<section class="contact-section" id="kapcsolat">
-    <!-- Top shape divider from FAQ -->
-    <div class="contact-shape-top" aria-hidden="true">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="0,0 1440,0 1440,80 0,0" fill="#060504"/>
-        </svg>
-    </div>
-
-    <div class="contact-inner">
-        <div class="contact-info">
-            <div class="section-eyebrow">Kapcsolat</div>
-            <h2 class="section-title">Szívesen<br>hallunk <em>önről</em></h2>
-            <p class="contact-info-desc">
-                Akár egy kölyök iránt érdeklődik, akár a fajtáról szeretne többet megtudni — bármikor örömmel válaszolunk.
-            </p>
-
-            <div class="contact-links">
-                <a href="mailto:info@laperlapiccola.hu" class="contact-link">
-                    <div class="cl-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                <div class="contact-links">
+                    <a href="mailto:info@laperlapiccola.hu" class="contact-link">
+                        <div class="cl-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                        </div>
+                        <div class="cl-text">
+                            <small>Email</small>
+                            <strong>info@laperlapiccola.hu</strong>
+                        </div>
+                        <svg class="cl-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>
-                    </div>
-                    <div class="cl-text">
-                        <small>Email</small>
-                        <strong>info@laperlapiccola.hu</strong>
-                    </div>
-                    <svg class="cl-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
+                    </a>
 
-                <a href="https://www.facebook.com/profile.php?id=100076817904143" target="_blank" rel="noopener" class="contact-link">
-                    <div class="cl-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-                    </div>
-                    <div class="cl-text">
-                        <small>Facebook</small>
-                        <strong>La perla piccola kennel</strong>
-                    </div>
-                    <svg class="cl-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-
-                <div class="contact-link">
-                    <div class="cl-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+                    <a href="https://www.facebook.com/profile.php?id=100076817904143" target="_blank" rel="noopener"
+                        class="contact-link">
+                        <div class="cl-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+                            </svg>
+                        </div>
+                        <div class="cl-text">
+                            <small>Facebook</small>
+                            <strong>La perla piccola kennel</strong>
+                        </div>
+                        <svg class="cl-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>
-                    </div>
-                    <div class="cl-text">
-                        <small>Helyszín</small>
-                        <strong>Kozármisleny, Pécs — Magyarország</strong>
+                    </a>
+
+                    <div class="contact-link">
+                        <div class="cl-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                        </div>
+                        <div class="cl-text">
+                            <small>Helyszín</small>
+                            <strong>Kozármisleny, Pécs — Magyarország</strong>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="contact-form">
-            <div class="form-title">Küldjön üzenetet</div>
+            <div class="contact-form">
+                <div class="form-title">Küldjön üzenetet</div>
 
-            <form action="mailto:info@laperlapiccola.hu" method="post" enctype="text/plain">
-                <div class="form-row">
-                    <div class="field">
-                        <label>Neve</label>
-                        <input type="text" name="nev" placeholder="Teljes neve" required>
+                <form action="mailto:info@laperlapiccola.hu" method="post" enctype="text/plain">
+                    <div class="form-row">
+                        <div class="field">
+                            <label>Neve</label>
+                            <input type="text" name="nev" placeholder="Teljes neve" required>
+                        </div>
+                        <div class="field">
+                            <label>Email</label>
+                            <input type="email" name="email" placeholder="email@cím.hu" required>
+                        </div>
                     </div>
+
                     <div class="field">
-                        <label>Email</label>
-                        <input type="email" name="email" placeholder="email@cím.hu" required>
+                        <label>Téma</label>
+                        <select name="tema">
+                            <option value="">Válasszon témát…</option>
+                            <option>Kölyök foglaló</option>
+                            <option>Fajtával kapcsolatos kérdés</option>
+                            <option>Kennel látogatás</option>
+                            <option>Tenyésztési kérdés</option>
+                            <option>Egyéb</option>
+                        </select>
                     </div>
-                </div>
 
-                <div class="field">
-                    <label>Téma</label>
-                    <select name="tema">
-                        <option value="">Válasszon témát…</option>
-                        <option>Kölyök foglaló</option>
-                        <option>Fajtával kapcsolatos kérdés</option>
-                        <option>Kennel látogatás</option>
-                        <option>Tenyésztési kérdés</option>
-                        <option>Egyéb</option>
-                    </select>
-                </div>
+                    <div class="field">
+                        <label>Üzenet</label>
+                        <textarea name="uzenet" placeholder="Írja meg üzenetét…"></textarea>
+                    </div>
 
-                <div class="field">
-                    <label>Üzenet</label>
-                    <textarea name="uzenet" placeholder="Írja meg üzenetét…"></textarea>
-                </div>
+                    <button type="submit" class="form-send">Üzenet elküldése →</button>
+                </form>
+            </div>
 
-                <button type="submit" class="form-send">Üzenet elküldése →</button>
-            </form>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-logo">La <em>Perla</em> Piccola</div>
+                <p class="footer-desc">FCI regisztrált tenyészet<br>Piccolo Levriero Italiano</p>
+            </div>
+
+            <div class="footer-nav-group">
+                <h4 class="footer-heading">Navigáció</h4>
+                <ul class="footer-links">
+                    <li><a href="#rolunk">Rólunk</a></li>
+                    <li><a href="#agaraink">Agaraink</a></li>
+                    <li><a href="#fajtarol">Fajta</a></li>
+                    <li><a href="#kolykök">Kölykök</a></li>
+                    <li><a href="#galeria">Galéria</a></li>
+                    <li><a href="#gyik">GYIK</a></li>
+                    <li><a href="#kapcsolat">Kapcsolat</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-nav-group">
+                <h4 class="footer-heading">Jogi információk</h4>
+                <ul class="footer-links">
+                    <li><a href="#">ÁSZF</a></li>
+                    <li><a href="#">Adatkezelési tájékoztató</a></li>
+                </ul>
+            </div>
         </div>
 
-    </div>
-</section>
-
-<!-- ==================== FOOTER ==================== -->
-<footer class="site-footer">
-    <div class="footer-top">
-        <div class="footer-brand">
-            <div class="footer-logo">La <em>Perla</em> Piccola</div>
-            <p class="footer-desc">FCI regisztrált tenyészet<br>Piccolo Levriero Italiano</p>
+        <div class="footer-bottom">
+            <div class="footer-copy">© 2025 La Perla Piccola Kennel. Minden jog fenntartva.</div>
+            <div class="footer-credits"><a href="admin.html">Admin Belépés</a></div>
         </div>
-        
-        <div class="footer-nav-group">
-            <h4 class="footer-heading">Navigáció</h4>
-            <ul class="footer-links">
-                <li><a href="#rolunk">Rólunk</a></li>
-                <li><a href="#agaraink">Agaraink</a></li>
-                <li><a href="#kolykök">Kölykök</a></li>
-                <li><a href="#galeria">Galéria</a></li>
-                <li><a href="#gyik">GYIK</a></li>
-                <li><a href="#kapcsolat">Kapcsolat</a></li>
-            </ul>
-        </div>
-        
-        <div class="footer-nav-group">
-            <h4 class="footer-heading">Jogi információk</h4>
-            <ul class="footer-links">
-                <li><a href="#">ÁSZF</a></li>
-                <li><a href="#">Adatkezelési tájékoztató</a></li>
-            </ul>
-        </div>
-    </div>
-    
-    <div class="footer-bottom">
-        <div class="footer-copy">© 2025 La Perla Piccola Kennel. Minden jog fenntartva.</div>
-        <div class="footer-credits"><a href="admin.html">Admin Belépés</a></div>
-    </div>
-</footer>
+    </footer>
 
-<div class="cursor" id="customCursor"></div>
+    <div class="cursor" id="customCursor"></div>
 
-<!-- Supabase Setup -->
+    <!-- Supabase Setup -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
     <script src="script2.js"></script>
 </body>
+
 </html>

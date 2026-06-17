@@ -118,18 +118,29 @@
             document.getElementById('ahl1'),
             document.getElementById('ahl2')
         ];
-        const paras   = [document.getElementById('ap0'), document.getElementById('ap1')];
+        const paras   = [
+            document.getElementById('ap0'), 
+            document.getElementById('ap1'),
+            document.getElementById('ap2'),
+            document.getElementById('ap3'),
+            document.getElementById('ap4'),
+            document.getElementById('ap5')
+        ];
         const feats   = container.querySelectorAll('.about-feat-pill');
         const img     = document.getElementById('aboutImg');
         const overlay = document.getElementById('aboutOverlay');
         const progLine = document.getElementById('aboutLine');
 
+        const hLines = container.querySelectorAll('.about-h-line');
+        const animEls = [eyebrow, ...hLines, ...paras, ...feats].filter(Boolean);
+
         function update() {
             const rect    = container.getBoundingClientRect();
             const total   = container.offsetHeight - window.innerHeight;
-            if (total <= 0) return; // mobile fallback — already revealed via CSS
+            if (total <= 0) return; 
+            
             const scrolled = Math.max(0, -rect.top);
-            const p        = Math.min(1, scrolled / total);
+            const p        = Math.max(0, Math.min(1, scrolled / total));
 
             // Gold progress line grows down the divider
             if (progLine) progLine.style.height = (p * 100) + '%';
@@ -138,22 +149,42 @@
             if (img)     img.style.transform     = `scale(${1.15 - p * 0.15})`;
             if (overlay) overlay.style.opacity   = Math.max(0, 0.8 - p * 1.1);
 
-            // Eyebrow slides in
-            if (eyebrow) eyebrow.classList.toggle('in', p >= 0.04);
+            // Pure scroll scrub for text elements mapped to 'p' (0 to 1)
+            // Phase 1: Text stays still and fades in (p: 0 -> 0.4)
+            // Phase 2: Text pans upwards to reveal overflow (p: 0.35 -> 1.0)
+            
+            const textContent = container.querySelector('.about-content');
+            if (textContent) {
+                const overflow = Math.max(0, textContent.offsetHeight - window.innerHeight + 200); // 200px padding at bottom
+                const panP = Math.max(0, (p - 0.35) / 0.65);
+                textContent.style.transform = `translateY(${-overflow * panP}px)`;
+            }
 
-            // Headline lines wipe up, staggered
-            hInners.forEach((el, i) => {
-                if (el) el.classList.toggle('in', p >= 0.08 + i * 0.1);
-            });
+            animEls.forEach((el, i) => {
+                // Spread the reveals over the first 60% of the scroll
+                const startScrub = i * 0.04; 
+                const scrubDist = 0.06; 
+                
+                let elP = 0;
+                if (p >= startScrub) {
+                    elP = Math.min(1, (p - startScrub) / scrubDist);
+                }
 
-            // Paragraphs fade up
-            paras.forEach((el, i) => {
-                if (el) el.classList.toggle('in', p >= 0.35 + i * 0.13);
-            });
+                const easeOutQuad = elP * (2 - elP);
+                el.style.opacity = easeOutQuad;
 
-            // Feature pills slide in from right
-            feats.forEach((el, i) => {
-                el.classList.toggle('in', p >= 0.58 + i * 0.07);
+                if (el.classList.contains('about-eyebrow')) {
+                    el.style.transform = `translateX(${-24 * (1 - easeOutQuad)}px)`;
+                } else if (el.classList.contains('about-h-line')) {
+                    const inner = el.querySelector('.about-h-inner');
+                    if (inner) {
+                        inner.style.transform = `translateY(${108 * (1 - easeOutQuad)}%) skewY(${5 * (1 - easeOutQuad)}deg)`;
+                    }
+                } else if (el.classList.contains('about-feat-pill')) {
+                    el.style.transform = `translateX(${28 * (1 - easeOutQuad)}px)`;
+                } else {
+                    el.style.transform = `translateY(${22 * (1 - easeOutQuad)}px)`;
+                }
             });
         }
 
@@ -512,5 +543,51 @@
         window.addEventListener('scroll', updateFaq, { passive: true });
         updateFaq();
     })();
+
+    /* ——— GENERAL SCROLL REVEALS (Fade Up Scrub) ——— */
+    (function() {
+        const fadeEls = document.querySelectorAll('.fade-up-scroll');
+        if (fadeEls.length === 0) return;
+
+        function updateFades() {
+            const vh = window.innerHeight;
+            fadeEls.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                
+                // Element starts revealing when its top crosses into the bottom 10% of the viewport
+                const startReveal = vh * 0.9;
+                // Element is fully revealed when it reaches 65% down the viewport
+                const endReveal = vh * 0.65;
+                
+                let p = 0;
+                if (rect.top > startReveal) {
+                    p = 0;
+                } else if (rect.top < endReveal) {
+                    p = 1;
+                } else {
+                    p = 1 - ((rect.top - endReveal) / (startReveal - endReveal));
+                }
+                
+                // Linear map for smooth, predictable scrolling without jumping at edges
+                el.style.opacity = p;
+                el.style.transform = `translateY(${40 * (1 - p)}px)`;
+            });
+        }
+
+        let fadeTicking = false;
+        window.addEventListener('scroll', () => {
+            if (!fadeTicking) {
+                window.requestAnimationFrame(() => {
+                    updateFades();
+                    fadeTicking = false;
+                });
+                fadeTicking = true;
+            }
+        }, { passive: true });
+        
+        updateFades();
+    })();
+
+
 
 })();
