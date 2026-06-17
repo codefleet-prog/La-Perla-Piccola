@@ -40,6 +40,10 @@
     <!-- ==================== NAV (centered pill) ==================== -->
     <nav class="nav" id="nav">
         <a href="#" class="nav-logo">La <em>Perla</em> Piccola</a>
+        <div class="nav-hamburger" id="navHamburger" aria-label="Menü">
+            <span></span>
+            <span></span>
+        </div>
         <ul class="nav-links">
             <li><a href="#rolunk">Rólunk</a></li>
             <li><a href="#agaraink">Agaraink</a></li>
@@ -51,6 +55,58 @@
         </ul>
         <a href="#kapcsolat" class="nav-btn">Érdeklődjön</a>
     </nav>
+
+    <!-- ==================== MOBILE MENU OVERLAY ==================== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <!-- Giant background watermark -->
+        <span class="mm-watermark" aria-hidden="true">PLI</span>
+
+
+        <!-- Main nav links — editorial numbered list -->
+        <nav class="mm-nav">
+            <a href="#rolunk" class="mm-item">
+                <span class="mm-num">01</span>
+                <span class="mm-link-text">Rólunk</span>
+                <span class="mm-arrow">→</span>
+            </a>
+            <a href="#agaraink" class="mm-item">
+                <span class="mm-num">02</span>
+                <span class="mm-link-text">Agaraink</span>
+                <span class="mm-arrow">→</span>
+            </a>
+            <a href="#fajtarol" class="mm-item">
+                <span class="mm-num">03</span>
+                <span class="mm-link-text">A Fajtáról</span>
+                <span class="mm-arrow">→</span>
+            </a>
+            <a href="#kolykök" class="mm-item">
+                <span class="mm-num">04</span>
+                <span class="mm-link-text">Kölykök</span>
+                <span class="mm-arrow">→</span>
+            </a>
+            <a href="#galeria" class="mm-item">
+                <span class="mm-num">05</span>
+                <span class="mm-link-text">Galéria</span>
+                <span class="mm-arrow">→</span>
+            </a>
+            <a href="#gyik" class="mm-item">
+                <span class="mm-num">06</span>
+                <span class="mm-link-text">GYIK</span>
+                <span class="mm-arrow">→</span>
+            </a>
+            <a href="#kapcsolat" class="mm-item">
+                <span class="mm-num">07</span>
+                <span class="mm-link-text">Kapcsolat</span>
+                <span class="mm-arrow">→</span>
+            </a>
+        </nav>
+
+        <!-- Footer strip -->
+        <div class="mm-footer">
+            <a href="#kapcsolat" class="mm-cta">Érdeklődjön <span>↗</span></a>
+            <span class="mm-city">Kozármisleny, Magyarország</span>
+        </div>
+    </div>
 
     <!-- ==================== HERO ==================== -->
     <section class="hero" id="home">

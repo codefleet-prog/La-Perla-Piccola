@@ -588,6 +588,25 @@
         updateFades();
     })();
 
+    /* ——— MOBILE NAV TOGGLE ——— */
+    (function() {
+        const nav = document.getElementById('nav');
+        const hamburger = document.getElementById('navHamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mm-item, .mm-cta');
 
+        if (hamburger && mobileMenu && nav) {
+            hamburger.addEventListener('click', () => {
+                nav.classList.toggle('menu-open');
+                mobileMenu.classList.toggle('open');
+            });
 
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    nav.classList.remove('menu-open');
+                    mobileMenu.classList.remove('open');
+                });
+            });
+        }
+    })();
 })();
