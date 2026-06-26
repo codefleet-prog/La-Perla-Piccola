@@ -1537,7 +1537,8 @@
         border-radius: 999px;
     }
 
-    .bc-stats { grid-column: 3 / 8; grid-row: 2; align-self: center; z-index: 3; margin-top: 150px; }
+    .bc-stats { grid-column: 2 / 7; grid-row: 2; align-self: center; z-index: 3; margin-top: 150px; }
+    .bc-facts { grid-column: 7 / 12; grid-row: 2; align-self: center; z-index: 3; margin-top: 150px; }
 
     .bc-stat-list {
         list-style: none;
@@ -1566,7 +1567,7 @@
         .breed-grid { display: flex; flex-direction: column; gap: 2rem; }
         .breed-image { order: -1; width: 60%; margin: 0 auto; }
         .bc-nature { margin-bottom: 0; }
-        .bc-stats { margin-top: 0; margin-left: 0; }
+        .bc-stats, .bc-facts { margin-top: 0; margin-left: 0; }
         .breed-card { padding: 2.5rem; }
         .breed-bg-text { font-size: 50vw; }
     }
