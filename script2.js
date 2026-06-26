@@ -135,6 +135,23 @@
         const animEls = [eyebrow, ...hLines, ...paras, ...feats].filter(Boolean);
 
         function update() {
+            if (window.innerWidth <= 768) {
+                if (progLine) progLine.style.height = '';
+                if (img) img.style.transform = '';
+                if (overlay) overlay.style.opacity = '';
+                const textContent = container.querySelector('.about-content');
+                if (textContent) textContent.style.transform = '';
+                animEls.forEach(el => {
+                    el.style.opacity = '';
+                    el.style.transform = '';
+                    if (el.classList.contains('about-h-line')) {
+                        const inner = el.querySelector('.about-h-inner');
+                        if (inner) inner.style.transform = '';
+                    }
+                });
+                return;
+            }
+
             const rect    = container.getBoundingClientRect();
             const total   = container.offsetHeight - window.innerHeight;
             if (total <= 0) return; 
