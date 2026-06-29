@@ -331,26 +331,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Default gallery data matching the main site
     const defaultGalleryData = {
         'track-teljes': [
-            { id: 'g1', src: '01.jpg', cap: 'Elegancia', panel: 1 },
-            { id: 'g2', src: '02.jpg', cap: 'Melegség', panel: 1 },
-            { id: 'g3', src: '03.jpg', cap: 'Sebesség', panel: 1 },
-            { id: 'g4', src: '04.jpg', cap: 'Lélek', panel: 1 },
-            { id: 'g5', src: '05.jpg', cap: 'Szabadság', panel: 1 },
-            { id: 'g6', src: '06.jpg', cap: 'Futás', panel: 2 },
-            { id: 'g7', src: '07.jpg', cap: 'Karakter', panel: 2 },
-            { id: 'g8', src: '08.jpg', cap: 'Derű', panel: 2 },
-            { id: 'g9', src: '09.jpg', cap: 'Arány', panel: 2 }
+            { id: 'g1', src: 'assets/01.jpg', cap: 'Elegancia', panel: 1 },
+            { id: 'g2', src: 'assets/02.jpg', cap: 'Melegség', panel: 1 },
+            { id: 'g3', src: 'assets/03.jpg', cap: 'Sebesség', panel: 1 },
+            { id: 'g4', src: 'assets/04.jpg', cap: 'Lélek', panel: 1 },
+            { id: 'g5', src: 'assets/05.jpg', cap: 'Szabadság', panel: 1 },
+            { id: 'g6', src: 'assets/06.jpg', cap: 'Futás', panel: 2 },
+            { id: 'g7', src: 'assets/07.jpg', cap: 'Karakter', panel: 2 },
+            { id: 'g8', src: 'assets/08.jpg', cap: 'Derű', panel: 2 },
+            { id: 'g9', src: 'assets/09.jpg', cap: 'Arány', panel: 2 }
         ],
         'track-kiallitas': [
-            { id: 'k1', src: '01.jpg', cap: 'Elegancia', panel: 1 },
-            { id: 'k2', src: '02.jpg', cap: 'Melegség', panel: 1 },
-            { id: 'k3', src: '03.jpg', cap: 'Sebesség', panel: 1 },
-            { id: 'k4', src: '04.jpg', cap: 'Lélek', panel: 1 },
-            { id: 'k5', src: '05.jpg', cap: 'Szabadság', panel: 1 },
-            { id: 'k6', src: '06.jpg', cap: 'Futás', panel: 2 },
-            { id: 'k7', src: '07.jpg', cap: 'Karakter', panel: 2 },
-            { id: 'k8', src: '08.jpg', cap: 'Derű', panel: 2 },
-            { id: 'k9', src: '09.jpg', cap: 'Arány', panel: 2 }
+            { id: 'k1', src: 'assets/01.jpg', cap: 'Elegancia', panel: 1 },
+            { id: 'k2', src: 'assets/02.jpg', cap: 'Melegség', panel: 1 },
+            { id: 'k3', src: 'assets/03.jpg', cap: 'Sebesség', panel: 1 },
+            { id: 'k4', src: 'assets/04.jpg', cap: 'Lélek', panel: 1 },
+            { id: 'k5', src: 'assets/05.jpg', cap: 'Szabadság', panel: 1 },
+            { id: 'k6', src: 'assets/06.jpg', cap: 'Futás', panel: 2 },
+            { id: 'k7', src: 'assets/07.jpg', cap: 'Karakter', panel: 2 },
+            { id: 'k8', src: 'assets/08.jpg', cap: 'Derű', panel: 2 },
+            { id: 'k9', src: 'assets/09.jpg', cap: 'Arány', panel: 2 }
         ]
     };
 

@@ -627,3 +627,19 @@
         }
     })();
 })();
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const showAllDogsBtn = document.getElementById("show-all-dogs-btn");
+    if (showAllDogsBtn) {
+        showAllDogsBtn.addEventListener("click", function() {
+            const hiddenDogs = document.querySelectorAll(".dog-hidden");
+            hiddenDogs.forEach(function(dog) {
+                dog.classList.remove("dog-hidden");
+            });
+            showAllDogsBtn.parentElement.style.display = "none";
+            // If there is any scroll-based animation, we trigger a window resize or scroll to recalculate
+            window.dispatchEvent(new Event("resize"));
+        });
+    }
+});
