@@ -128,6 +128,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
 
+            let firstImage = p.image;
+            if (firstImage && firstImage.startsWith('[')) {
+                try {
+                    let arr = JSON.parse(firstImage);
+                    firstImage = arr[0] || '';
+                } catch(e) {}
+            }
+
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td>
