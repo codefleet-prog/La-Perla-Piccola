@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadPuppies() {
         try {
-            const { data, error } = await window.supabaseClient.from('puppies').select('*').order('display_order', { ascending: true }).order('created_at', { ascending: false });
+            const { data, error } = await window.supabaseClient.from('puppies').select('*').order('display_order', { ascending: false }).order('created_at', { ascending: false });
             if (error) throw error;
             puppies = data || [];
             renderTable();
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sorted.sort((a, b) => {
                 const aOrder = a.display_order || 0;
                 const bOrder = b.display_order || 0;
-                if (aOrder !== bOrder) return aOrder - bOrder;
+                if (aOrder !== bOrder) return bOrder - aOrder;
                 return new Date(b.created_at) - new Date(a.created_at);
             });
         } else if (val === 'name-asc') {
@@ -130,7 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td><img src="${p.image}" class="table-img" alt="${p.name}"></td>
+                <td>
+                    <div class="drag-handle" data-id="${p.id}" title="Húzd a sorrend módosításához">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h16M4 16h16"/></svg>
+                    </div>
+                </td>
+                <td><img src="${firstImage}" class="table-img" alt="${p.name}"></td>
                 <td><strong>${p.name}</strong></td>
                 <td>${p.agelabel} <br><small style="color:var(--muted)">${p.date}</small></td>
                 <td>${statusBadge}</td>
@@ -172,18 +177,32 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         
         let finalImage = pImage.value;
-        // If a file was selected, convert it to Base64 (takes precedence over URL)
-        if (pImageFile.files && pImageFile.files[0]) {
+        // If files were selected, convert them to Base64
+        if (pImageFile.files && pImageFile.files.length > 0) {
             try {
-                finalImage = await getBase64(pImageFile.files[0]);
+                let base64Promises = [];
+                for (let i = 0; i < pImageFile.files.length; i++) {
+                    base64Promises.push(getBase64(pImageFile.files[i]));
+                }
+                let base64Images = await Promise.all(base64Promises);
+                finalImage = JSON.stringify(base64Images);
             } catch (err) {
                 console.error("Hiba a kép beolvasásakor:", err);
             }
+        } else if (finalImage && finalImage.includes(',')) {
+            // Comma separated URLs
+            let urls = finalImage.split(',').map(s => s.trim()).filter(s => s !== '');
+            if (urls.length > 0) {
+                finalImage = JSON.stringify(urls);
+            }
+        } else if (finalImage && !finalImage.startsWith('[')) {
+            // Single URL to JSON array
+            finalImage = JSON.stringify([finalImage]);
         }
 
         // Fallback placeholder if empty
-        if (!finalImage) {
-            finalImage = 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=900&auto=format&fit=crop';
+        if (!finalImage || finalImage === '[]' || finalImage === '[""]') {
+            finalImage = JSON.stringify(['https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=900&auto=format&fit=crop']);
         }
 
         const newPuppy = {
@@ -230,7 +249,14 @@ document.addEventListener('DOMContentLoaded', () => {
         pAgeLabel.value = p.agelabel;
         pAgeNum.value = p.agenum;
         pStatus.value = p.status;
-        pImage.value = p.image;
+        let displayImage = p.image;
+        if (displayImage && displayImage.startsWith('[')) {
+            try {
+                let arr = JSON.parse(displayImage);
+                displayImage = arr.join(', ');
+            } catch(e) {}
+        }
+        pImage.value = displayImage;
         pDesc.value = p.desc;
         pTags.value = p.tags;
 

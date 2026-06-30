@@ -430,7 +430,7 @@
         // Fetch puppies from Supabase
         try {
             if (!window.supabaseClient) throw new Error("Supabase is not configured.");
-            const { data, error } = await window.supabaseClient.from('puppies').select('*').order('display_order', { ascending: true }).order('created_at', { ascending: false });
+            const { data, error } = await window.supabaseClient.from('puppies').select('*').order('display_order', { ascending: false }).order('created_at', { ascending: false });
             if (!error && data) {
                 let html = '';
                 data.forEach(p => {
@@ -463,12 +463,43 @@
                             });
                         }
 
+                        let imageUrls = [];
+                        if (p.image && p.image.startsWith('[')) {
+                            try {
+                                imageUrls = JSON.parse(p.image);
+                            } catch(e) {
+                                imageUrls = [p.image];
+                            }
+                        } else {
+                            imageUrls = [p.image || ''];
+                        }
+                        let firstImg = imageUrls[0] || '';
+                        
+                        let sliderControls = '';
+                        let dataImagesAttrs = '';
+                        if (imageUrls.length > 1) {
+                            let dotsHTML = imageUrls.map((_, i) => `<div class="puppy-dot ${i === 0 ? 'active' : ''}"></div>`).join('');
+                            dataImagesAttrs = `data-images='${JSON.stringify(imageUrls).replace(/'/g, "&#39;")}' data-index="0"`;
+                            sliderControls = `
+                                <div class="puppy-slider-nav">
+                                    <button class="puppy-slider-btn prev" onclick="changePuppyImage(event, this, -1)">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                                    </button>
+                                    <button class="puppy-slider-btn next" onclick="changePuppyImage(event, this, 1)">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                                    </button>
+                                </div>
+                                <div class="puppy-dots">${dotsHTML}</div>
+                            `;
+                        }
+
                         html += `
-                            <div class="puppy-card">
+                            <div class="puppy-card" ${dataImagesAttrs}>
                                 <div class="puppy-img-wrap">
                                     <span class="puppy-age-ghost">${p.agenum || '00'}</span>
                                     ${badgeHTML}
-                                    <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.background='#1A1816'">
+                                    <img src="${firstImg}" class="puppy-main-img" alt="${p.name}" loading="lazy" onerror="this.style.background='#1A1816'">
+                                    ${sliderControls}
                                 </div>
                                 <div class="puppy-body">
                                     <div class="puppy-litter">${p.name} · ${p.date || ''}</div>
@@ -485,7 +516,46 @@
                 track.innerHTML = html;
             }
         } catch (e) { console.error("Error fetching puppies:", e); }
+    })();
 
+    // Global function for puppy slider
+    window.changePuppyImage = function(e, btn, direction) {
+        e.preventDefault();
+        e.stopPropagation();
+        const card = btn.closest('.puppy-card');
+        if (!card) return;
+        
+        const imagesStr = card.getAttribute('data-images');
+        if (!imagesStr) return;
+        
+        let images = [];
+        try {
+            images = JSON.parse(imagesStr);
+        } catch(e) { return; }
+        
+        let currentIndex = parseInt(card.getAttribute('data-index') || '0', 10);
+        currentIndex += direction;
+        
+        if (currentIndex < 0) currentIndex = images.length - 1;
+        if (currentIndex >= images.length) currentIndex = 0;
+        
+        card.setAttribute('data-index', currentIndex);
+        
+        const imgEl = card.querySelector('.puppy-main-img');
+        if (imgEl) {
+            imgEl.src = images[currentIndex];
+        }
+        
+        const dots = card.querySelectorAll('.puppy-dot');
+        dots.forEach((dot, idx) => {
+            if (idx === currentIndex) dot.classList.add('active');
+            else dot.classList.remove('active');
+        });
+    };
+
+    (function initPuppyCarousel() {
+        const track = document.getElementById('puppies-track');
+        if (!track) return;
         const btnPrev = document.querySelector('.p-prev');
         const btnNext = document.querySelector('.p-next');
         if (!btnPrev || !btnNext) return;

@@ -1686,6 +1686,68 @@
     }
     .puppy-card:hover .puppy-img-wrap img { transform: scale(1.06); }
 
+    .puppy-slider-nav {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0.5rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 2;
+    }
+    @media (hover: none) {
+        .puppy-slider-nav { opacity: 1; }
+    }
+    .puppy-card:hover .puppy-slider-nav {
+        opacity: 1;
+    }
+    .puppy-slider-btn {
+        pointer-events: auto;
+        background: rgba(6, 5, 4, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+        backdrop-filter: blur(4px);
+        transition: background 0.2s, transform 0.2s;
+    }
+    .puppy-slider-btn:hover {
+        background: rgba(6, 5, 4, 0.8);
+        transform: scale(1.1);
+    }
+    .puppy-slider-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+    .puppy-dots {
+        position: absolute;
+        bottom: 0.75rem;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        z-index: 2;
+    }
+    .puppy-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.4);
+        transition: background 0.3s;
+    }
+    .puppy-dot.active {
+        background: rgba(255, 255, 255, 0.9);
+    }
+
     .puppy-age-ghost {
         position: absolute;
         top: -0.1em; right: -0.03em;
