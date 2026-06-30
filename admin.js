@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const pAgeLabel = document.getElementById('p-age-label');
     const pAgeNum = document.getElementById('p-age-num');
     const pStatus = document.getElementById('p-status');
-    const pImage = document.getElementById('p-image');
     const pImageFile = document.getElementById('p-image-file');
     const pDesc = document.getElementById('p-desc');
     const pTags = document.getElementById('p-tags');
@@ -183,8 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     puppyForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        let finalImage = pImage.value;
+        let finalImage = '';
         // If files were selected, convert them to Base64
         if (pImageFile.files && pImageFile.files.length > 0) {
             try {
@@ -197,15 +195,12 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (err) {
                 console.error("Hiba a kép beolvasásakor:", err);
             }
-        } else if (finalImage && finalImage.includes(',')) {
-            // Comma separated URLs
-            let urls = finalImage.split(',').map(s => s.trim()).filter(s => s !== '');
-            if (urls.length > 0) {
-                finalImage = JSON.stringify(urls);
+        } else if (pId.value) {
+            // Edit mode but no new file: keep existing image
+            const existing = puppies.find(x => x.id == pId.value);
+            if (existing) {
+                finalImage = existing.image;
             }
-        } else if (finalImage && !finalImage.startsWith('[')) {
-            // Single URL to JSON array
-            finalImage = JSON.stringify([finalImage]);
         }
 
         // Fallback placeholder if empty
@@ -257,14 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
         pAgeLabel.value = p.agelabel;
         pAgeNum.value = p.agenum;
         pStatus.value = p.status;
-        let displayImage = p.image;
-        if (displayImage && displayImage.startsWith('[')) {
-            try {
-                let arr = JSON.parse(displayImage);
-                displayImage = arr.join(', ');
-            } catch(e) {}
-        }
-        pImage.value = displayImage;
         pDesc.value = p.desc;
         pTags.value = p.tags;
 
