@@ -1519,7 +1519,7 @@
 
     /* Positioning */
     .bc-origin { grid-column: 1 / 6; grid-row: 1; align-self: start; }
-    .bc-nature { grid-column: 8 / 13; grid-row: 1; align-self: end; margin-bottom: -4rem; }
+    .bc-nature { grid-column: 8 / 13; grid-row: 1; align-self: end; margin-bottom: -4rem; padding-left: 5rem; }
 
     .breed-image {
         grid-column: 5 / 9;
