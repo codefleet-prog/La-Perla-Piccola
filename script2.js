@@ -364,7 +364,6 @@
         const diagLine    = section.querySelector('.dogs-diagonal-line');
         const hInners     = section.querySelectorAll('.dogs-h-inner');
         const intro       = section.querySelector('.dogs-intro');
-        const features    = section.querySelectorAll('.dog-feature');
 
         function updateDogs() {
             const rect   = section.getBoundingClientRect();
@@ -386,6 +385,7 @@
             if (intro) intro.classList.toggle('in', p > 0.06);
 
             // Per-feature reveals (portrait + info card elements)
+            const features = section.querySelectorAll('.dog-feature');
             features.forEach((feature, fi) => {
                 const fRect   = feature.getBoundingClientRect();
                 const fEnter  = Math.max(0, vh - fRect.top);
@@ -452,7 +452,7 @@
                     } else {
                         let badgeHTML = `<div class="puppy-status ${statusClass}">${statusDot}${statusText}</div>`;
                         let ctaHTML = p.status === 'available' 
-                            ? `<a href="#kapcsolat" class="puppy-cta">Foglalja le →</a>`
+                            ? `<a href="#kapcsolat" class="puppy-cta">Foglald le →</a>`
                             : `<span class="puppy-cta reserved">Már Foglalt</span>`;
 
                         // Generate tags dynamically
@@ -579,6 +579,135 @@
         });
     })();
 
+
+    /* ——— DOGS dynamic fetch & render ——— */
+    (async function() {
+        const track = document.getElementById('dogs-track');
+        if (!track) return;
+
+        try {
+            if (!window.supabaseClient) throw new Error("Supabase is not configured.");
+            const { data, error } = await window.supabaseClient.from('dogs').select('*').order('display_order', { ascending: false }).order('created_at', { ascending: true });
+            if (!error && data) {
+                let html = '';
+                data.forEach((d, index) => {
+                    const isLeft = index % 2 === 0;
+                    let featureClass = isLeft ? 'dog-feature--left' : 'dog-feature--right';
+                    if (index >= 4) {
+                        featureClass += ' dog-hidden';
+                    }
+                    const displayIndex = String(index + 1).padStart(2, '0');
+                    
+                    let imageUrls = [];
+                    if (d.images && d.images.startsWith('[')) {
+                        try {
+                            imageUrls = JSON.parse(d.images);
+                        } catch(e) {
+                            imageUrls = [d.images];
+                        }
+                    } else {
+                        imageUrls = [d.images || ''];
+                    }
+                    let firstImg = imageUrls[0] || 'assets/dog_placeholder.jpg';
+                    
+                    let sliderControls = '';
+                    let dataImagesAttrs = '';
+                    if (imageUrls.length > 1) {
+                        let dotsHTML = imageUrls.map((_, i) => `<div class="dog-dot ${i === 0 ? 'active' : ''}"></div>`).join('');
+                        dataImagesAttrs = `data-images='${JSON.stringify(imageUrls).replace(/'/g, "&#39;")}' data-index="0"`;
+                        sliderControls = `
+                            <div class="dog-slider-nav">
+                                <button class="dog-slider-btn prev" onclick="changeDogImage(event, this, -1)">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                                </button>
+                                <button class="dog-slider-btn next" onclick="changeDogImage(event, this, 1)">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                                </button>
+                            </div>
+                            <div class="dog-dots">${dotsHTML}</div>
+                        `;
+                    }
+
+                    html += `
+                        <article class="dog-feature ${featureClass}" ${dataImagesAttrs}>
+                            <span class="dog-index" aria-hidden="true">${displayIndex}</span>
+                            <div class="dog-portrait">
+                                <div class="dog-portrait-frame">
+                                    <img src="${firstImg}" class="dog-main-img" alt="${d.name}" loading="lazy">
+                                    ${sliderControls}
+                                    <div class="dog-portrait-overlay"></div>
+                                </div>
+                                <span class="dog-vert-label" aria-hidden="true">La Perla Piccola</span>
+                            </div>
+                            <div class="dog-info-card">
+                                <div class="dog-info-accent"></div>
+                                <div class="dog-info-name">${d.name}</div>
+                                <div class="dog-info-subtitle">${d.subtitle || 'Piccolo Levriero Italiano'}</div>
+                                <p class="dog-info-desc">${d.description || ''}</p>
+                                <div class="dog-info-divider"></div>
+                                <div class="dog-info-stats">
+                                    <div class="dog-stat">
+                                        <span class="dog-stat-label">Született</span>
+                                        <span class="dog-stat-value">${d.birth_date || ''}</span>
+                                    </div>
+                                    ${d.results ? `<div class="dog-stat" style="grid-column: 1 / -1;">
+                                        <span class="dog-stat-label">Eredmények</span>
+                                        <span class="dog-stat-value">${d.results}</span>
+                                    </div>` : ''}
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                });
+                track.innerHTML = html;
+
+                // Trigger a scroll event to immediately evaluate scroll-based reveals for newly added dogs
+                window.dispatchEvent(new Event('scroll'));
+                
+                // Hide the "Show all" button if there are 4 or fewer dogs
+                const showAllDogsBtn = document.getElementById("show-all-dogs-btn");
+                if (showAllDogsBtn && data.length <= 4) {
+                    showAllDogsBtn.parentElement.style.display = "none";
+                }
+            }
+        } catch (e) { console.error("Error fetching dogs:", e); }
+    })();
+
+    // Global function for dog slider
+    window.changeDogImage = function(e, btn, direction) {
+        e.preventDefault();
+        e.stopPropagation();
+        const card = btn.closest('.dog-feature');
+        if (!card) return;
+        
+        const imagesStr = card.getAttribute('data-images');
+        if (!imagesStr) return;
+        
+        let images = [];
+        try {
+            images = JSON.parse(imagesStr);
+        } catch(e) { return; }
+        
+        let currentIndex = parseInt(card.getAttribute('data-index') || '0', 10);
+        currentIndex += direction;
+        
+        if (currentIndex < 0) currentIndex = images.length - 1;
+        if (currentIndex >= images.length) currentIndex = 0;
+        
+        card.setAttribute('data-index', currentIndex);
+        
+        const imgEl = card.querySelector('.dog-main-img');
+        if (imgEl) {
+            imgEl.src = images[currentIndex];
+        }
+        
+        const dots = card.querySelectorAll('.dog-dot');
+        dots.forEach((dot, idx) => {
+            if (idx === currentIndex) dot.classList.add('active');
+            else dot.classList.remove('active');
+        });
+    };
+
     /* ——— FAQ accordion & scroll reveal ——— */
     (function() {
         const section = document.getElementById('gyik');
@@ -695,6 +824,36 @@
                 });
             });
         }
+    })();
+
+    /* ——— SMOOTH ANCHOR SCROLLING ——— */
+    (function() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href').substring(1);
+                if (!targetId) return;
+                
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    let offset = targetElement.getBoundingClientRect().top + window.scrollY;
+                    
+                    if (targetId === 'rolunk') {
+                        // The section itself is sticky. To make the text fully reveal without the nav covering it,
+                        // we must jump DEEP into the scroll container's progress.
+                        offset += window.innerHeight * 1.2; 
+                    } else {
+                        // Standard offset for other sections
+                        offset -= 120;
+                    }
+                    
+                    window.scrollTo({
+                        top: offset,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
     })();
 })();
 

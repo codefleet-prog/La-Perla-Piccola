@@ -26,6 +26,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const pDesc = document.getElementById('p-desc');
     const pTags = document.getElementById('p-tags');
 
+    // Dogs form inputs
+    const dogTableBody = document.getElementById('dog-table-body');
+    const btnAddDog = document.getElementById('btn-add-dog');
+    const dogModal = document.getElementById('dog-modal');
+    const btnCloseDogModal = document.getElementById('btn-close-dog-modal');
+    const btnCancelDogModal = document.getElementById('btn-cancel-dog-modal');
+    const dogForm = document.getElementById('dog-form');
+    const dogModalTitle = document.getElementById('dog-modal-title');
+
+    const dId = document.getElementById('d-id');
+    const dName = document.getElementById('d-name');
+    const dSubtitle = document.getElementById('d-subtitle');
+    const dBirth = document.getElementById('d-birth');
+    const dResults = document.getElementById('d-results');
+    const dDesc = document.getElementById('d-desc');
+    const dImageFile = document.getElementById('d-image-file');
+
     const sortSelect = document.getElementById('sort-select');
 
     // Initial default data if localStorage is empty
@@ -51,12 +68,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    let dogs = [];
+
+    async function loadDogs() {
+        try {
+            const { data, error } = await window.supabaseClient.from('dogs').select('*').order('display_order', { ascending: false }).order('created_at', { ascending: true });
+            if (error) throw error;
+            dogs = data || [];
+            renderDogTable();
+        } catch (err) {
+            console.error("Error loading dogs:", err);
+        }
+    }
+
     // --- Authentication ---
     function checkAuth() {
         if (sessionStorage.getItem('admin_logged_in') === 'true') {
             loginView.style.display = 'none';
             dashboardView.style.display = 'flex';
             renderTable();
+            loadDogs();
         } else {
             loginView.style.display = 'flex';
             dashboardView.style.display = 'none';
@@ -326,6 +357,187 @@ document.addEventListener('DOMContentLoaded', () => {
         await loadPuppies();
     };
 
+
+    // --- Dogs Logic ---
+    function renderDogTable() {
+        dogTableBody.innerHTML = '';
+        const sortedDogs = [...dogs];
+        
+        sortedDogs.forEach((d, index) => {
+            let firstImage = d.images;
+            if (firstImage && firstImage.startsWith('[')) {
+                try {
+                    let arr = JSON.parse(firstImage);
+                    firstImage = arr[0] || '';
+                } catch(e) {}
+            }
+
+            const isFirst = index === 0;
+            const isLast = index === sortedDogs.length - 1;
+            let moveButtons = `
+                <button class="btn-icon" ${isFirst ? 'disabled style="opacity:0.3"' : ''} onclick="moveDogUp('${d.id}')">⬆️</button>
+                <button class="btn-icon" ${isLast ? 'disabled style="opacity:0.3"' : ''} onclick="moveDogDown('${d.id}')">⬇️</button>
+            `;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>
+                    <div class="drag-handle" data-id="${d.id}" title="Húzd a sorrend módosításához">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h16M4 16h16"/></svg>
+                    </div>
+                </td>
+                <td><img src="${firstImage}" class="table-img" alt="${d.name}"></td>
+                <td><strong>${d.name}</strong><br><small style="color:var(--muted)">${d.subtitle || ''}</small></td>
+                <td>${d.birth_date} <br><small style="color:var(--muted)">${d.results || ''}</small></td>
+                <td>
+                    ${moveButtons}
+                    <button class="btn-icon" onclick="editDog('${d.id}')">✏️</button>
+                    <button class="btn-icon" onclick="deleteDog('${d.id}')" style="color:#ff4444">🗑️</button>
+                </td>
+            `;
+            dogTableBody.appendChild(tr);
+        });
+    }
+
+    function openDogModal() { dogModal.style.display = 'flex'; }
+    function closeDogModal() { dogModal.style.display = 'none'; dogForm.reset(); }
+
+    btnAddDog.addEventListener('click', () => {
+        dogModalTitle.textContent = 'Új Kutya Hozzáadása';
+        dId.value = '';
+        openDogModal();
+    });
+
+    btnCloseDogModal.addEventListener('click', closeDogModal);
+    btnCancelDogModal.addEventListener('click', closeDogModal);
+
+    dogForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        let finalImage = '';
+        if (dImageFile.files && dImageFile.files.length > 0) {
+            try {
+                let base64Promises = [];
+                for (let i = 0; i < dImageFile.files.length; i++) {
+                    base64Promises.push(getBase64(dImageFile.files[i]));
+                }
+                let base64Images = await Promise.all(base64Promises);
+                finalImage = JSON.stringify(base64Images);
+            } catch (err) {
+                console.error("Hiba a kép beolvasásakor:", err);
+            }
+        } else if (dId.value) {
+            const existing = dogs.find(x => x.id == dId.value);
+            if (existing) finalImage = existing.images;
+        }
+
+        if (!finalImage || finalImage === '[]' || finalImage === '[""]') {
+            finalImage = JSON.stringify(['assets/dog_placeholder.jpg']);
+        }
+
+        const newDog = {
+            name: dName.value,
+            subtitle: dSubtitle.value,
+            birth_date: dBirth.value,
+            results: dResults.value,
+            description: dDesc.value,
+            images: finalImage
+        };
+
+        try {
+            if (dId.value) {
+                const { error } = await window.supabaseClient.from('dogs').update(newDog).eq('id', dId.value);
+                if (error) throw error;
+            } else {
+                const maxOrder = dogs.length > 0 ? Math.max(...dogs.map(d => d.display_order || 0)) : 0;
+                newDog.display_order = maxOrder + 1;
+                const { error } = await window.supabaseClient.from('dogs').insert([newDog]);
+                if (error) throw error;
+            }
+            closeDogModal();
+            loadDogs();
+        } catch (err) {
+            console.error("Error saving dog:", err);
+            alert("Hiba mentés közben!");
+        }
+    });
+
+    window.editDog = function(id) {
+        const dog = dogs.find(x => x.id === id);
+        if (!dog) return;
+        dogModalTitle.textContent = 'Kutya Szerkesztése';
+        dId.value = dog.id;
+        dName.value = dog.name;
+        dSubtitle.value = dog.subtitle || '';
+        dBirth.value = dog.birth_date || '';
+        dResults.value = dog.results || '';
+        dDesc.value = dog.description || '';
+        openDogModal();
+    };
+
+    window.deleteDog = async function(id) {
+        if (!confirm('Biztosan törölni szeretnéd ezt a kutyát?')) return;
+        try {
+            const { error } = await window.supabaseClient.from('dogs').delete().eq('id', id);
+            if (error) throw error;
+            loadDogs();
+        } catch (err) {
+            console.error("Error deleting dog:", err);
+            alert("Hiba törlés közben!");
+        }
+    };
+
+    async function ensureDogDisplayOrder() {
+        let sorted = [...dogs];
+        let needsUpdate = false;
+        for (let i = 0; i < sorted.length; i++) {
+            if (typeof sorted[i].display_order !== 'number') {
+                needsUpdate = true;
+                sorted[i].display_order = sorted.length - i;
+            }
+        }
+        if (needsUpdate) {
+            for (let i = 0; i < sorted.length; i++) {
+                await window.supabaseClient.from('dogs').update({ display_order: sorted[i].display_order }).eq('id', sorted[i].id);
+            }
+            await loadDogs();
+        }
+    }
+
+    window.moveDogUp = async function(id) {
+        await ensureDogDisplayOrder();
+        const sorted = [...dogs];
+        const idx = sorted.findIndex(d => d.id === id);
+        if (idx <= 0) return;
+        const current = sorted[idx];
+        const prev = sorted[idx - 1];
+        const temp = current.display_order;
+        current.display_order = prev.display_order;
+        prev.display_order = temp;
+        renderDogTable();
+        await Promise.all([
+            window.supabaseClient.from('dogs').update({ display_order: current.display_order }).eq('id', current.id),
+            window.supabaseClient.from('dogs').update({ display_order: prev.display_order }).eq('id', prev.id)
+        ]);
+        await loadDogs();
+    };
+
+    window.moveDogDown = async function(id) {
+        await ensureDogDisplayOrder();
+        const sorted = [...dogs];
+        const idx = sorted.findIndex(d => d.id === id);
+        if (idx < 0 || idx >= sorted.length - 1) return;
+        const current = sorted[idx];
+        const next = sorted[idx + 1];
+        const temp = current.display_order;
+        current.display_order = next.display_order;
+        next.display_order = temp;
+        renderDogTable();
+        await Promise.all([
+            window.supabaseClient.from('dogs').update({ display_order: current.display_order }).eq('id', current.id),
+            window.supabaseClient.from('dogs').update({ display_order: next.display_order }).eq('id', next.id)
+        ]);
+        await loadDogs();
+    };
     // --- Sidebar Navigation ---
     const navItems = document.querySelectorAll('.sidebar-nav .nav-item:not([disabled])');
     const dashboardSections = document.querySelectorAll('.dashboard-section');

@@ -1043,6 +1043,8 @@
     .dogs-h-line {
         display: block;
         overflow: hidden;
+        padding-bottom: 0.2em;
+        margin-bottom: -0.2em;
     }
     .dogs-h-inner {
         display: block;
@@ -1151,8 +1153,80 @@
         object-fit: cover;
         transition: transform 1.2s var(--ease-spring);
     }
+    
+    /* Image specific alignments */
+    .dog-portrait-frame img[src*="dog_1.png"] { object-position: center 10%; }
+    .dog-portrait-frame img[src*="dog_3.png"] { object-position: right 85%; }
+    .dog-portrait-frame img[src*="dog_4.jpeg"] { object-position: center 85%; }
+    .dog-portrait-frame img[src*="dog_5.png"] { object-position: left 85%; }
+    .dog-portrait-frame img[src*="dog_7.png"] { object-position: center 80%; }
+    .dog-portrait-frame img[src*="dog_11.jpeg"] { object-position: center 85%; }
+    .dog-portrait-frame img[src*="dog_16.jpeg"] { object-position: center 90%; }
     .dog-feature:hover .dog-portrait-frame img {
         transform: scale(1.05);
+    }
+
+    /* Dog Slider Styles */
+    .dog-slider-nav {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 2;
+    }
+    @media (hover: none) {
+        .dog-slider-nav { opacity: 1; }
+    }
+    .dog-feature:hover .dog-slider-nav {
+        opacity: 1;
+    }
+    .dog-slider-btn {
+        pointer-events: auto;
+        background: rgba(6, 5, 4, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+        backdrop-filter: blur(4px);
+        transition: background 0.2s, transform 0.2s;
+    }
+    .dog-slider-btn:hover {
+        background: rgba(6, 5, 4, 0.8);
+        transform: scale(1.1);
+    }
+    .dog-slider-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+    .dog-dots {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        z-index: 2;
+    }
+    .dog-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.4);
+        transition: background 0.3s;
+    }
+    .dog-dot.active {
+        background: rgba(255, 255, 255, 0.9);
     }
 
     /* Subtle gradient overlay on portrait bottom */

@@ -42,6 +42,7 @@
             <nav class="sidebar-nav">
                 <button class="nav-item active" data-view="puppies-view">🐾 Kölykök kezelése</button>
                 <button class="nav-item" data-view="gallery-view">📸 Galéria kezelése</button>
+                <button class="nav-item" data-view="dogs-view">🐕 Agaraink kezelése</button>
             </nav>
             <div class="sidebar-bottom">
                 <a href="index.html" class="nav-item nav-back">🏠 Főoldal</a>
@@ -92,7 +93,7 @@
                     <div class="header-actions">
                         <div class="gallery-toggle" id="adminGalleryToggle">
                             <div class="gt-slider" id="adminGtSlider"></div>
-                            <button class="gt-btn active" data-target="track-teljes">Teljes</button>
+                            <button class="gt-btn active" data-target="track-teljes">Életképek</button>
                             <button class="gt-btn" data-target="track-kiallitas">Kiállítások</button>
                         </div>
                     </div>
@@ -103,6 +104,33 @@
                     <div class="gallery-tracks" id="adminGalleryTracks"></div>
                 </div>
             </div> <!-- /#gallery-view -->
+
+            <!-- ====== DOGS VIEW ====== -->
+            <div id="dogs-view" class="dashboard-section" style="display: none;">
+                <header class="main-header">
+                    <h2>Agaraink kezelése</h2>
+                    <div class="header-actions">
+                        <button id="btn-add-dog" class="btn-solid-gold">+ Új Kutya Hozzáadása</button>
+                    </div>
+                </header>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Kép</th>
+                                <th>Név / Subtitle</th>
+                                <th>Született / Eredmények</th>
+                                <th>Műveletek</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dog-table-body">
+                            <!-- Rows injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- /#dogs-view -->
 
         </main>
     </div>
@@ -166,6 +194,56 @@
 
                 <div class="modal-actions">
                     <button type="button" id="btn-cancel-modal" class="btn-outline">Mégsem</button>
+                    <button type="submit" class="btn-solid-gold">Mentés</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== DOG MODAL ==================== -->
+    <div id="dog-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h3 id="dog-modal-title">Új Kutya Hozzáadása</h3>
+                <button id="btn-close-dog-modal" class="close-btn">×</button>
+            </header>
+            <form id="dog-form">
+                <input type="hidden" id="d-id">
+                
+                <div class="form-row">
+                    <div class="field">
+                        <label>Név (Pl. Camelot Il Angelico Dono – RUSTY)</label>
+                        <input type="text" id="d-name" required placeholder="Pl. Camelot Il Angelico Dono – RUSTY">
+                    </div>
+                    <div class="field">
+                        <label>Alcím / Fajta (Pl. Piccolo Levriero Italiano)</label>
+                        <input type="text" id="d-subtitle" required placeholder="Pl. Piccolo Levriero Italiano">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="field">
+                        <label>Született (Pl. 2019.02.27.)</label>
+                        <input type="text" id="d-birth" required placeholder="2019.02.27.">
+                    </div>
+                    <div class="field">
+                        <label>Eredmények (Pl. HJCH 2020.07, HCH 2020.10)</label>
+                        <input type="text" id="d-results" placeholder="Opcionális">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Leírás</label>
+                    <textarea id="d-desc" rows="3" required placeholder="Rusty az első agarunk..."></textarea>
+                </div>
+
+                <div class="field">
+                    <label>Képek feltöltése (Több kép is kijelölhető)</label>
+                    <input type="file" id="d-image-file" accept="image/*" class="file-input" multiple>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" id="btn-cancel-dog-modal" class="btn-outline">Mégsem</button>
                     <button type="submit" class="btn-solid-gold">Mentés</button>
                 </div>
             </form>
