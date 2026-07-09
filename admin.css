@@ -496,7 +496,7 @@ button, input, select, textarea {
 @media (max-width: 768px) {
     #dashboard-view { flex-direction: column; }
     
-    .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); flex-direction: column; }
+    .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); flex-direction: column; height: auto; position: relative; }
     .sidebar-brand { padding: 1rem; text-align: center; border-bottom: 1px solid var(--border); }
     .sidebar-nav { padding: 0.5rem; display: flex; overflow-x: auto; gap: 0.5rem; border-bottom: 1px solid var(--border); }
     .sidebar-bottom { padding: 0.5rem; display: flex; flex-direction: row; justify-content: center; gap: 0.5rem; }

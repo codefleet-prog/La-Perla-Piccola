@@ -514,6 +514,11 @@
                     }
                 });
                 track.innerHTML = html;
+                
+                const showMoreWrap = document.getElementById("puppies-show-more");
+                if (showMoreWrap && data.length > 4) {
+                    showMoreWrap.classList.add("has-more-puppies");
+                }
             }
         } catch (e) { console.error("Error fetching puppies:", e); }
     })();
@@ -859,6 +864,15 @@
 
 
 document.addEventListener("DOMContentLoaded", function() {
+    const showAllPuppiesBtn = document.getElementById("show-all-puppies-btn");
+    if (showAllPuppiesBtn) {
+        showAllPuppiesBtn.addEventListener("click", function() {
+            const track = document.getElementById("puppies-track");
+            if (track) track.classList.add("show-all-mobile");
+            showAllPuppiesBtn.parentElement.style.display = "none";
+        });
+    }
+
     const showAllDogsBtn = document.getElementById("show-all-dogs-btn");
     if (showAllDogsBtn) {
         showAllDogsBtn.addEventListener("click", function() {

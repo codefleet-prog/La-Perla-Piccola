@@ -23,7 +23,7 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; scroll-behavior: smooth; }
+    html { font-size: 16px; scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
         background: var(--ink);
@@ -2847,8 +2847,12 @@
         @keyframes slide-in-right { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes slide-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         .puppies-section { padding: 5rem 2rem; }
-        .puppies-carousel-wrap { margin: 0 -2rem; padding: 0 2rem; }
-        .puppy-card { flex: 0 0 100%; }
+        .puppies-carousel-wrap { margin: 0; padding: 0; overflow: visible; }
+        .puppies-grid { flex-direction: column; gap: 1.5rem; overflow-x: visible; scroll-snap-type: none; }
+        .puppies-grid:not(.show-all-mobile) .puppy-card:nth-child(n+5) { display: none; }
+        .puppy-card { flex: 1 1 auto; width: 100%; scroll-snap-align: none; }
+        .puppies-nav { display: none; }
+        #puppies-show-more.has-more-puppies { display: block; margin-top: 2rem; text-align: center; }
         .gallery-sticky { padding: 6rem 1.5rem 2rem; grid-template-rows: auto 1fr; gap: 1.5rem; height: 100vh; }
         .gallery-header { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
         .gallery-header .section-title { font-size: 2.2rem; }
