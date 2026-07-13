@@ -809,7 +809,7 @@
         const nav = document.getElementById('nav');
         const hamburger = document.getElementById('navHamburger');
         const mobileMenu = document.getElementById('mobileMenu');
-        const mobileLinks = document.querySelectorAll('.mm-item, .mm-cta');
+        const mobileLinks = document.querySelectorAll('.mm-item, .mm-cta, .nav-logo');
 
         if (hamburger && mobileMenu && nav) {
             hamburger.addEventListener('click', () => {
@@ -838,9 +838,9 @@
                     e.preventDefault();
                     let offset = targetElement.getBoundingClientRect().top + window.scrollY;
                     
-                    if (targetId === 'rolunk') {
+                    if (targetId === 'rolunk' && window.innerWidth > 1024) {
                         // The section itself is sticky. To make the text fully reveal without the nav covering it,
-                        // we must jump DEEP into the scroll container's progress.
+                        // we must jump DEEP into the scroll container's progress (desktop only).
                         offset += window.innerHeight * 1.2; 
                     } else {
                         // Standard offset for other sections
