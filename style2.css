@@ -1,6 +1,14 @@
     /* ===================================================
        DESIGN TOKENS
     =================================================== */
+    @font-face {
+        font-family: 'Mythical Garden';
+        src: url('assets/fonts/MythicalGarden.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+
     :root {
         --ink:        #060504;
         --ink-mid:    #0E0C0B;
@@ -157,23 +165,23 @@
         /* height driven by the child text — no fixed height */
     }
     .loader-name {
-        font-family: var(--ff-display);
-        font-size: clamp(2rem, 5vw, 4rem);
-        font-weight: 700;
-        letter-spacing: -0.02em;
+        font-family: 'Mythical Garden', sans-serif;
+        font-size: 3rem;
+        font-weight: normal;
+        letter-spacing: 0.05em;
         color: var(--cream);
-        transform: translateY(110%);
-        transition: transform 0.75s var(--ease-spring);
-        line-height: 1.2;
-        display: block;
+        transform: translateY(40px);
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform;
     }
     #loader.animate .loader-name { transform: translateY(0); }
 
     .loader-name em {
-        font-family: var(--ff-serif);
+        font-family: 'Cormorant Garamond', var(--ff-serif);
         font-style: italic;
-        font-weight: 400;
+        font-weight: 500;
         color: var(--gold);
+        font-size: 1.1em;
     }
 
     .loader-sub {
@@ -232,21 +240,21 @@
     }
 
     .nav-logo {
-        font-family: var(--ff-display);
-        font-size: 0.9rem;
-        font-weight: 700;
-        letter-spacing: -0.01em;
+        font-family: 'Mythical Garden', sans-serif;
+        font-size: 1.3rem;
+        font-weight: normal;
+        letter-spacing: 0.05em;
         color: var(--cream);
         line-height: 1;
         margin-right: 3.5rem;
         flex-shrink: 0;
     }
     .nav-logo em {
-        font-family: var(--ff-serif);
+        font-family: 'Cormorant Garamond', var(--ff-serif);
         font-style: italic;
-        font-weight: 400;
+        font-weight: 500;
         color: var(--gold);
-        font-size: 1.05em;
+        font-size: 1.1em;
     }
 
     /* Base hide for mobile menu overlay on desktop */
@@ -873,7 +881,7 @@
     .about-img-panel img {
         width: 100%; height: 100%;
         object-fit: cover;
-        object-position: center;
+        object-position: center 20%;
         transform: scale(1.15);
         will-change: transform;
     }
@@ -1989,7 +1997,7 @@
     =================================================== */
     .gallery-scroll-container {
         position: relative;
-        height: 900vh;
+        height: auto;
         background: var(--ink-soft);
     }
 
@@ -2017,14 +2025,11 @@
     }
 
     .gallery-sticky {
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        display: grid;
-        grid-template-rows: auto 1fr;
-        padding: 3.5rem 4rem 2.5rem;
-        overflow: hidden;
-        gap: 1.5rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 4rem 2rem;
+        gap: 2rem;
     }
 
     .gallery-header {
@@ -2085,10 +2090,8 @@
     /* Horizontal filmstrip — wider than viewport, clips at sticky overflow:hidden */
     .gallery-track {
         display: none;
-        align-items: stretch;
+        flex-direction: column;
         gap: 2rem;
-        min-height: 0;
-        will-change: transform;
     }
     .gallery-track.active {
         display: flex;
@@ -2103,10 +2106,12 @@
     }
 
     .gallery-panel {
-        flex: 0 0 calc(100vw - 8rem);
+        width: 100%;
+        height: 70vh;
+        min-height: 500px;
+        max-height: 800px;
         display: grid;
         gap: 0.65rem;
-        min-height: 0;
     }
 
     /* Panel 1 — same bento layout as before */
@@ -2561,15 +2566,21 @@
         max-width: 400px;
     }
     .footer-logo {
-        font-family: var(--ff-display);
-        font-size: 2.8rem;
-        line-height: 1.1;
-        font-weight: 700;
-        letter-spacing: -0.02em;
+        font-family: 'Mythical Garden', sans-serif;
+        font-size: 2rem;
+        font-weight: normal;
+        letter-spacing: 0.05em;
         color: var(--cream);
-        margin-bottom: 1.5rem;
+        line-height: 1.2;
+        margin-bottom: 0.5rem;
     }
-    .footer-logo em { font-family: var(--ff-serif); font-style: italic; font-weight: 400; color: var(--gold); }
+    .footer-logo em { 
+        font-family: 'Cormorant Garamond', var(--ff-serif); 
+        font-style: italic; 
+        font-weight: 500; 
+        color: var(--gold); 
+        font-size: 1.1em;
+    }
     .footer-desc {
         font-size: 1.05rem;
         color: rgba(237,234,227,0.4);
@@ -2857,22 +2868,21 @@
         .puppy-card { flex: 1 1 auto; width: 100%; scroll-snap-align: none; }
         .puppies-nav { display: none; }
         #puppies-show-more.has-more-puppies { display: block; margin-top: 2rem; text-align: center; }
-        .gallery-sticky { padding: 6rem 1.5rem 2rem; grid-template-rows: auto 1fr; gap: 1.5rem; height: 100vh; }
+        .gallery-sticky { padding: 4rem 1.5rem; }
         .gallery-header { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
         .gallery-header .section-title { font-size: 2.2rem; }
         .gallery-header-actions { align-items: flex-start; gap: 1rem; transform: none; }
         
-        .gallery-track { gap: 1rem; }
+        .gallery-track { gap: 1.5rem; }
         .gallery-panel { 
-            flex: none; 
+            height: auto;
+            max-height: none;
             display: grid !important; 
-            grid-template-rows: 1fr 1fr !important;
-            grid-template-columns: none !important;
-            grid-auto-flow: column !important;
-            grid-auto-columns: calc(100vw - 4rem) !important; 
+            grid-template-columns: 1fr !important;
+            grid-auto-rows: 300px !important;
             gap: 1rem;
         }
-        .gallery-panel .gi { grid-column: auto !important; grid-row: auto !important; }
+        .gallery-panel .gi { grid-column: 1 !important; grid-row: auto !important; }
         .contact-section { padding: 5rem 2rem; }
         footer.site-footer { padding: 4rem 1.5rem 2rem; }
         .footer-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem 1.5rem; padding-bottom: 3rem; }
@@ -2887,4 +2897,70 @@
 /* --- Dog Showcase Toggle --- */
 .dog-hidden {
     display: none !important;
+}
+
+/* ===================================================
+   LIGHTBOX MODAL
+=================================================== */
+.lightbox-modal {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    padding-top: 5vh;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(6, 5, 4, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.lightbox-modal.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-content {
+    max-width: 90vw;
+    max-height: 80vh;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    animation: lightboxZoom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    object-fit: contain;
+}
+#lightbox-caption {
+    margin-top: 1.5rem;
+    text-align: center;
+    color: var(--cream);
+    font-family: var(--ff-body);
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    animation: lightboxZoom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lightbox-close {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    color: var(--cream-dim);
+    font-size: 45px;
+    font-weight: 300;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    z-index: 100000;
+    line-height: 1;
+}
+.lightbox-close:hover {
+    color: var(--gold);
+}
+@keyframes lightboxZoom {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+@media (max-width: 768px) {
+    .lightbox-close { top: 15px; right: 20px; font-size: 35px; }
+    .lightbox-content { max-height: 70vh; }
+    #lightbox-caption { font-size: 0.95rem; }
 }

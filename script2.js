@@ -228,6 +228,34 @@
 
         if (!tracksContainer) return;
 
+        let activeTrack = null;
+
+        // IntersectionObserver for simple vertical scroll reveal
+        const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
+        const giObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    entry.target.style.transitionDelay = '0s';
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        function observeItems() {
+            if (!activeTrack) return;
+            const items = activeTrack.querySelectorAll('.gi');
+            items.forEach(item => {
+                item.classList.remove('revealed');
+                giObserver.observe(item);
+            });
+        }
+
+        function refreshGalItems() {
+            activeTrack = document.querySelector('.gallery-track.active');
+            observeItems();
+        }
+
         // Fetch gallery from Supabase
         try {
             if (!window.supabaseClient) throw new Error("Supabase is not configured.");
@@ -255,9 +283,13 @@
                     Object.keys(panels).sort().forEach(pNum => {
                         html += `<div class="gallery-panel gallery-panel-${pNum}">`;
                         panels[pNum].forEach(img => {
+                            let imageSrc = img.src || '';
+                            if (imageSrc && !imageSrc.startsWith('http') && !imageSrc.startsWith('assets/') && !imageSrc.startsWith('data:')) {
+                                imageSrc = `assets/${imageSrc}`;
+                            }
                             html += `
                                 <div class="gi">
-                                    <img src="${img.src}" alt="${img.cap || ''}" loading="lazy">
+                                    <img src="${imageSrc}" alt="${img.cap || ''}" loading="lazy">
                                     <span class="gi-cap">${img.cap || ''}</span>
                                 </div>
                             `;
@@ -271,12 +303,9 @@
                 tracksContainer.innerHTML = html;
                 
                 // Refresh the NodeList of items now that they are rendered
-                if (typeof refreshGalItems === 'function') refreshGalItems();
+                refreshGalItems();
             }
         } catch (e) { console.error("Error fetching gallery:", e); }
-
-        let activeTrack    = document.querySelector('.gallery-track.active');
-        let galItems       = activeTrack ? activeTrack.querySelectorAll('.gi') : [];
 
         function updateSlider(btn) {
             if (!slider || !btn) return;
@@ -286,35 +315,6 @@
 
         const initialBtn = document.querySelector('.gt-btn.active');
         if (initialBtn) setTimeout(() => updateSlider(initialBtn), 100);
-
-        function updateGallery() {
-            if (!galContainer || !activeTrack) return;
-            const rect        = galContainer.getBoundingClientRect();
-            const totalScroll = galContainer.offsetHeight - window.innerHeight;
-            const scrolled    = Math.max(0, -rect.top);
-            const p           = totalScroll > 0 ? Math.min(1, scrolled / totalScroll) : 0;
-
-            // Horizontal slide with a deadzone so it doesn't slide immediately
-            const trackWidth  = activeTrack.scrollWidth;
-            const vw          = window.innerWidth;
-            const maxMove     = Math.max(0, trackWidth - vw + 64); // 64px padding allowance
-
-            const slideDeadzone = 0.25; // 25% of sticky scroll is stationary
-            const slideP = p < slideDeadzone ? 0 : (p - slideDeadzone) / (1 - slideDeadzone);
-
-            activeTrack.style.transform = `translate3d(${-maxMove * slideP}px, 0, 0)`;
-
-            // Fully scroll driven reveal mapping total viewport-to-viewport scroll
-            const revealTotal = galContainer.offsetHeight;
-            const revealScrolled = Math.max(0, window.innerHeight - rect.top);
-            const revealP = revealTotal > 0 ? Math.min(1, revealScrolled / revealTotal) : 0;
-
-            galItems.forEach((item, i) => {
-                let threshold = Math.min(0.95, i * (0.95 / Math.max(1, galItems.length)));
-                item.classList.toggle('revealed', revealP >= threshold);
-                item.style.transitionDelay = '0s'; // override any previous delays
-            });
-        }
 
         toggleBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -327,33 +327,28 @@
                 const targetId = btn.getAttribute('data-target');
                 document.querySelectorAll('.gallery-track').forEach(t => {
                     t.classList.remove('active');
-                    t.querySelectorAll('.gi').forEach(gi => gi.classList.remove('revealed'));
+                    t.querySelectorAll('.gi').forEach(gi => {
+                        gi.classList.remove('revealed');
+                        giObserver.unobserve(gi);
+                    });
                 });
                 
                 activeTrack = document.getElementById(targetId);
                 if (activeTrack) {
                     activeTrack.classList.add('active');
                     activeTrack.classList.add('animating');
-                    galItems = activeTrack.querySelectorAll('.gi');
-                    updateGallery();
-                    
-                    // Reset scroll to start of gallery so it shows the first image
-                    const topOffset = galContainer.getBoundingClientRect().top + window.scrollY;
-                    window.scrollTo({ top: topOffset, behavior: 'smooth' });
+                    observeItems();
                 }
             });
         });
 
         function refreshGalItems() {
-            if (activeTrack) galItems = activeTrack.querySelectorAll('.gi');
-            updateGallery();
+            activeTrack = document.querySelector('.gallery-track.active');
+            observeItems();
         }
 
         // Initialize when data is fetched
         setTimeout(refreshGalItems, 500);
-
-        window.addEventListener('scroll', updateGallery, { passive: true });
-        updateGallery();
     })();
 
     /* ——— AGARAINK bidirectional scroll reveal ——— */
@@ -885,4 +880,66 @@ document.addEventListener("DOMContentLoaded", function() {
             window.dispatchEvent(new Event("resize"));
         });
     }
+});
+
+// ===================================================
+// IMAGE LIGHTBOX LOGIC
+// ===================================================
+document.addEventListener("DOMContentLoaded", function() {
+    const lightboxModal = document.getElementById('lightbox-modal');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    function openLightbox(src, caption) {
+        if (!lightboxModal || !lightboxImg) return;
+        lightboxImg.src = src;
+        lightboxCaption.textContent = caption || '';
+        lightboxModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+    }
+
+    function closeLightbox() {
+        if (!lightboxModal) return;
+        lightboxModal.classList.remove('active');
+        document.body.style.overflow = '';
+        setTimeout(() => { lightboxImg.src = ''; }, 300); // Clear image after animation
+    }
+
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    if (lightboxModal) {
+        lightboxModal.addEventListener('click', (e) => {
+            if (e.target === lightboxModal) {
+                closeLightbox();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightboxModal && lightboxModal.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+
+    // Delegate clicks for Gallery (.gi) and Agaraink (.dog-main-img)
+    document.addEventListener('click', (e) => {
+        // Gallery
+        const gi = e.target.closest('.gi');
+        if (gi) {
+            const img = gi.querySelector('img');
+            const cap = gi.querySelector('.gi-cap');
+            if (img) openLightbox(img.src, cap ? cap.textContent : '');
+            return;
+        }
+
+        // Agaraink
+        if (e.target.classList.contains('dog-main-img')) {
+            const alt = e.target.getAttribute('alt');
+            openLightbox(e.target.src, alt || '');
+            return;
+        }
+    });
 });
