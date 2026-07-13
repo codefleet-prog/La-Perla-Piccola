@@ -713,6 +713,8 @@
         line-height: 1;
         color: var(--cream);
         margin-bottom: 0.75rem;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
     }
     .stat-num span { color: var(--gold); }
 
