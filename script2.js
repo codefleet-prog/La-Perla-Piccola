@@ -135,7 +135,7 @@
         const animEls = [eyebrow, ...hLines, ...paras, ...feats].filter(Boolean);
 
         function update() {
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 1024) {
                 if (progLine) progLine.style.height = '';
                 if (img) img.style.transform = '';
                 if (overlay) overlay.style.opacity = '';
@@ -937,6 +937,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Agaraink
         if (e.target.classList.contains('dog-main-img')) {
+            const alt = e.target.getAttribute('alt');
+            openLightbox(e.target.src, alt || '');
+            return;
+        }
+
+        // Rólunk image
+        if (e.target.id === 'aboutImg') {
             const alt = e.target.getAttribute('alt');
             openLightbox(e.target.src, alt || '');
             return;
