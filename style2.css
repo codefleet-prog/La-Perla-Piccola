@@ -2835,9 +2835,9 @@
         .hero-right { text-align: center; align-items: center; max-width: 100%; }
         .hero-asterisk { display: none; }
         .hero-side-label { display: none; }
-        .stats-section { padding: 4rem 1rem; overflow: hidden; max-width: 100vw; }
+        .stats-section { padding: 4rem 1rem; }
         .stats-grid { grid-template-columns: 1fr 1fr; width: 100%; }
-        .stat-block { padding: 2rem 0.5rem; border-right: none; border-bottom: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .stat-block { padding: 2rem 0.5rem; border-right: none; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; text-align: center; }
         .stat-block:nth-child(odd) { border-right: 1px solid var(--border); }
         .stat-block:nth-child(n+3) { border-bottom: none; }
         .stat-num { font-size: 2.5rem; white-space: normal; word-break: break-word; }
