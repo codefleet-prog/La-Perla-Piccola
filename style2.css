@@ -2827,6 +2827,7 @@
     }
 
     @media (max-width: 768px) {
+        html, body { overflow-x: hidden; width: 100%; }
         .nav { top: 1rem; padding: 0.4rem 0.4rem 0.4rem 1.2rem; }
         .hero-bottom { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 2rem; padding: 0 1.5rem 4rem; }
         .hero-wordmark { margin-left: 0; display: flex; justify-content: center; width: 100%; }
@@ -2834,9 +2835,11 @@
         .hero-right { text-align: center; align-items: center; max-width: 100%; }
         .hero-asterisk { display: none; }
         .hero-side-label { display: none; }
-        .stats-section { padding: 4rem 2rem; }
+        .stats-section { padding: 4rem 1rem; }
         .stats-grid { grid-template-columns: 1fr 1fr; }
-        .stat-block { border-right: none; border-bottom: 1px solid var(--border); }
+        .stat-block { padding: 2rem 1rem; border-right: none; border-bottom: 1px solid var(--border); }
+        .stat-block:nth-child(odd) { border-right: 1px solid var(--border); }
+        .stat-block:nth-child(n+3) { border-bottom: none; }
         .about-scroll-container { height: auto; padding: 4rem 1.5rem; }
         .about-sticky { position: relative; height: auto; display: flex; flex-direction: column; overflow: visible; }
         .about-text-panel { flex: none; width: 100%; padding: 0; border-right: none; background: transparent; }
