@@ -633,6 +633,7 @@
                             <span class="dog-index" aria-hidden="true">${displayIndex}</span>
                             <div class="dog-portrait">
                                 <div class="dog-portrait-frame">
+                                    <img src="${firstImg}" class="dog-blur-bg" aria-hidden="true">
                                     <img src="${firstImg}" class="dog-main-img" alt="${d.name}" loading="lazy">
                                     ${sliderControls}
                                     <div class="dog-portrait-overlay"></div>
@@ -697,8 +698,12 @@
         card.setAttribute('data-index', currentIndex);
         
         const imgEl = card.querySelector('.dog-main-img');
+        const blurEl = card.querySelector('.dog-blur-bg');
         if (imgEl) {
             imgEl.src = images[currentIndex];
+        }
+        if (blurEl) {
+            blurEl.src = images[currentIndex];
         }
         
         const dots = card.querySelectorAll('.dog-dot');
